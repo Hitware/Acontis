@@ -1,0 +1,145 @@
+@font-face {
+    font-family: "/Hind-Bold";
+    src: url("../fonts/Hind-Bold.ttf"); 
+}
+
+
+@font-face {
+    font-family: "Hind-Medium";
+    src: url("../fonts/Hind-Medium.ttf"); 
+}
+
+@font-face {
+    font-family: "Hind-Light";
+    src: url("../fonts/Hind-Light.ttf"); 
+}
+body{
+    background-image: url(../img/fondo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.content_logo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55vh;
+}
+.content_logo img{
+    width: 30%;
+}
+.content_logo h1{
+    font-family: "Hind-Light";
+    color: #fff;
+    position: absolute;
+    top: 4em;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    left: 26em;
+}
+.content_logo h3{
+    font-family: "/Hind-Bold";
+    color: #fff;
+    position: absolute;
+    top: 11em;
+    left: 22em;
+    font-size: 1.5em;
+}
+.content_logo p{
+    font-family: "Hind-Light";
+    color: #fff;
+    position: absolute;
+    top: 24em;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    left: 4em;
+    padding: 0px 36%;
+    text-align: center;
+}
+.form_login{
+    text-align: center;
+}
+.form_login input{
+    border: 0;
+    border-radius: 8px;
+    width: 20%;
+    height: 28px;
+    margin-bottom: 10px;
+    margin-left: 48px;
+    padding-left: 46px;
+}
+.form_login input:focus{
+    border: 0;
+    outline-style: none;
+}
+.form_control img{
+    left: 41%;
+    position: absolute;
+    z-index: 9;
+    width: 20px;
+    margin-top: 5px;
+}
+.form_control_two{
+    display: flex;
+    justify-content: center;
+    padding-left: 45px;
+}
+.form_control_two p{    
+    font-family: "Hind-Light";
+    color: #fff;
+    margin: 0;
+    font-size: 0.8em;
+}
+
+.form_control_two a{    
+    font-family: "Hind-Light";
+    color: #fff;
+    text-decoration: none;
+}
+#btn_recordar_usuario{
+    width: 11%;
+    padding-left: 16px;
+    text-align: left;
+    padding-left: 4px;
+}
+#btn_recordar_pass{
+    width: 10%;
+    text-align: right;
+    padding-left: 16px;
+}
+#recordar_usuario{
+    width: 1%;
+    height: 14px;
+    padding: 0;
+    margin: 0;
+    margin-top: 2px;
+    
+}
+.form_registro{
+    width: 100%;
+    text-align: center;
+}
+.form_registro p{
+    font-family: "Hind-Light";
+    color: #fff;
+    padding-left: 3%;
+    font-size: 0.8em;
+}
+#btn_login{
+    font-family: "/Hind-Bold";
+    border: 0;
+    border-radius: 10px;
+    padding: 4px 50px;
+    margin-left: 3%;
+    background-color: #001d65;
+    color: #fff;
+    font-size: 1.2em;
+    box-shadow: -1px 10px 22px -14px rgba(0,0,0,0.75);
+}
+#btn_login:focus{
+    outline-style: none;
+}
+#btn_login:hover{
+   cursor: pointer;
+}
