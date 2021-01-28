@@ -96,7 +96,9 @@
             
         </div>
     </div>
+    
 </div>
+
 <div id="reportesEmpresa" class="modal fade">
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">

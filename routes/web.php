@@ -213,3 +213,16 @@ Route::get('perfil-empresa/{idempresa}',array(
     'middleware' => 'auth',
     'uses'=>'EmpresaController@perfilEmpresa'
 ));
+
+//DOCUMENTOS
+
+Route::post('agregar-documento/{id_empresa}',array(
+    'as'=>'agregar-documento',
+    'middleware'=>'auth',
+    'uses'=>'DocumentoController@agregar'
+));
+
+Route::get('/documento/{filename}',array(
+    'as'=>'documentoEmpresa',
+    'uses'=>'DocumentoController@getDocument'
+));

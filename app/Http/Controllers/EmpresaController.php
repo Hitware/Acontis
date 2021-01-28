@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\Empresa;
 use App\Models\EmpresaContador;
 use App\Models\Reporte;
+use App\Models\Documento;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\QRMailable;
@@ -244,8 +245,10 @@ class EmpresaController extends Controller
 
     public function perfilEmpresa($idempresa){
         $empresa=Empresa::where('id_company','=',$idempresa)->get();
+        $documentos=Documento::where('id_empresa','=',$idempresa)->get();
         return view('empresas.perfil')->with(array(
-            'empresa'=>$empresa
+            'empresa'=>$empresa,
+            'documentos'=>$documentos
         ));
     }
 

@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <img height="10%" width="100%" src="https://www.acontis.co/wp-content/uploads/2019/05/banner_fondo_titulos_acontis.jpg" alt="">
+        <img height="10%" width="100%" src="img/cabezote.jpg" alt="">
         <div class="row">
             <p>Hola {{$nombre_empresa}}, esperamos que te encuentres muy bien.</p>
             <p>El código QR que se muestra a continuación es para el registro de visitas que eventualmente nuestros
