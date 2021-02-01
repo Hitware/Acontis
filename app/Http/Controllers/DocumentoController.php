@@ -28,9 +28,8 @@ class DocumentoController extends Controller
                 
             }
         $documento->save(); 
-        return view('empresas.perfil')->with(array(
-            
-        ));
+        return back()->with('message','Documento Cargado');
+        
     }
 
     public function getDocument($filename){

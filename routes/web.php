@@ -182,7 +182,7 @@ Route::get('eventos',array(
     'uses'=>'EventoController@eventos'
 ));
 
-Route::post('/agregar-evento',array(
+Route::post('/agregar-planeacion',array(
     'as'=>'agregar-evento',
     'middelware'=>'auth',
     'uses'=>'EventoController@agregar'
@@ -214,6 +214,12 @@ Route::get('perfil-empresa/{idempresa}',array(
     'uses'=>'EmpresaController@perfilEmpresa'
 ));
 
+Route::get('planeacion',array(
+    'as'=>'planeacion',
+    'middleware' => 'auth',
+    'uses'=>'VisitaController@planeacion'
+));
+
 //DOCUMENTOS
 
 Route::post('agregar-documento/{id_empresa}',array(
@@ -225,4 +231,22 @@ Route::post('agregar-documento/{id_empresa}',array(
 Route::get('/documento/{filename}',array(
     'as'=>'documentoEmpresa',
     'uses'=>'DocumentoController@getDocument'
+));
+
+//PLANEACION
+
+Route::post('agregar-planeacion',array(
+    'as'=>'agregar-planeacion',
+    'middleware'=>'auth',
+    'uses'=>'VisitaController@agregar'
+));
+
+Route::get('planeacion/{mes}','VisitaController@index_month');
+
+//ALERTAS
+
+Route::post('agregar-alerta/{id_empresa}',array(
+    'as'=>'agregar-alerta',
+    'middleware'=>'auth',
+    'uses'=>'AlertaController@agregar'
 ));

@@ -44,11 +44,11 @@
                     @if (count($empresas)>0)
                         @foreach ($empresas as $empresa)
                             <tr>
-                                <th>{{$empresa->name_company}}</th>
+                                <th>{{Str::limit($empresa->name_company, 20)}}</th>
                                 <th>{{$empresa->nit_company}}</th>
                                 <th>{{$empresa->email_company}}</th>
                                 <th>{{$empresa->telephone_company}}</th>
-                                <th>{{$empresa->representante_legal}}</th>
+                                <th>{{Str::limit($empresa->representante_legal, 20)}}</th>
                                 <th>
                                     <a data-toggle="modal"
                                      data-target="#modalQR{{$empresa->id_company}}" class="btn btn-info btn-circle btn-sm">

@@ -113,9 +113,4 @@ class UserController extends Controller
         return response(json_encode($reportes),200)->header('Content-type','text/plain');
     }
 
-    public function login(Request $request){
-        return "Accion prueba";
-        die();
-    }
-
 }

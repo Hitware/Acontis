@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\Empresa;
 use App\Models\EmpresaContador;
 use App\Models\Reporte;
+use App\Models\Alerta;
 use App\Models\Documento;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -246,9 +247,11 @@ class EmpresaController extends Controller
     public function perfilEmpresa($idempresa){
         $empresa=Empresa::where('id_company','=',$idempresa)->get();
         $documentos=Documento::where('id_empresa','=',$idempresa)->get();
+        $alertas=Alerta::where('id_empresa','=',$idempresa)->get();
         return view('empresas.perfil')->with(array(
             'empresa'=>$empresa,
-            'documentos'=>$documentos
+            'documentos'=>$documentos,
+            'alertas'=>$alertas,
         ));
     }
 

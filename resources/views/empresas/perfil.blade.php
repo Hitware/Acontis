@@ -37,7 +37,7 @@
                 3
             </div>
             <div class="tab-pane fade" id="alertas" role="tabpanel" aria-labelledby="contact-tab">
-                4
+                @include('empresas.alertas')
             </div>
           </div> 
     </div>
