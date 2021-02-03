@@ -91,6 +91,32 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'CLIENT_CO' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_CO', 'localhost'),
+            'port' => "1433",
+            'database' => env('forge'),
+            'username' => env('DB_USERNAME_CO', 'forge'),
+            'password' => env('DB_PASSWORD_CO', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
+        'CLIENT_PH' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_PH', 'localhost'),
+            'port' => "1433",
+            'database' => env('forge'),
+            'username' => env('DB_USERNAME_PH', 'forge'),
+            'password' => env('DB_PASSWORD_PH', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
     ],
 
     /*
