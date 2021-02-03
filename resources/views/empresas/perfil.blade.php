@@ -34,7 +34,7 @@
                 @include('empresas.documentos')
             </div>
             <div class="tab-pane fade" id="estados" role="tabpanel" aria-labelledby="contact-tab">
-                3
+                @include('empresas.estados')
             </div>
             <div class="tab-pane fade" id="alertas" role="tabpanel" aria-labelledby="contact-tab">
                 @include('empresas.alertas')
@@ -43,4 +43,31 @@
     </div>
 </div>
 @endforeach
+@endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#estados-table',
+    data: {
+      por_cobrar: [],
+      por_pagar : []
+    },
+    mounted() {
+      let vm = this;
+
+      axios.get('{{ route("api.empresa.por_cobrar", [ "id" => request()->route("idempresa") ]) }}')
+        .then(function (response) {
+          vm.por_cobrar = response.data;
+        });
+
+      axios.get('{{ route("api.empresa.por_pagar", [ "id" => request()->route("idempresa") ]) }}')
+        .then(function (response) {
+          vm.por_pagar = response.data;
+        });
+    }
+  })
+</script>
 @endsection
