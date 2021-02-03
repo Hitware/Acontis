@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ChangeConnectionCompanyBd;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role'=> \App\Http\Middleware\RoleMiddleware::class,
         'EsAdmin'=> \App\Http\Middleware\EsAdmin::class,
+        "change-connection-company-bd" => ChangeConnectionCompanyBd::class
     ];
 }
