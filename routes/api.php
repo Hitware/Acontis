@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('empresa/{id}/cuentas-por-cobrar', [CuentaPorCobrarController::class, "index"])
+    ->middleware("change-connection-company-bd")
+    ->name("api.empresa.por_cobrar");
+Route::get('empresa/{id}/cuentas-por-pagar', [CuentaPorPagarController::class, "index"])
+    ->middleware("change-connection-company-bd")
+    ->name("api.empresa.por_cobrar");
