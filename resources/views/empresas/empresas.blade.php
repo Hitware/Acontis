@@ -189,6 +189,12 @@
                                                             <input type="text" id="direccion" name="direccion" value="{{$empresa->address_company}}" class="form-control">
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Base de Datos</label>
+                                                            <input type="text" id="dbword" name="dbword" value="{{$empresa->name_bd_adm}}" class="form-control">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <br>
                                                 

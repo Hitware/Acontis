@@ -53,7 +53,9 @@
     el: '#estados-table',
     data: {
       por_cobrar: [],
-      por_pagar : []
+      por_pagar : [],
+      por_cobrar_detallada : [],
+      movimientos_contables : [],
     },
     mounted() {
       let vm = this;
@@ -66,6 +68,16 @@
       axios.get('{{ route("api.empresa.por_pagar", [ "id" => request()->route("idempresa") ]) }}')
         .then(function (response) {
           vm.por_pagar = response.data;
+        });
+      
+      axios.get('{{ route("api.empresa.movimientos_contables", [ "id" => request()->route("idempresa") ]) }}')
+        .then(function (response) {
+          vm.movimientos_contables = response.data;
+        });
+
+      axios.get('{{ route("api.empresa.por_cobrar.detalle", [ "id" => request()->route("idempresa") ]) }}')
+        .then(function (response) {
+          vm.por_cobrar_detallada = response.data;
         });
     }
   })

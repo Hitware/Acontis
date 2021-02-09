@@ -68,6 +68,7 @@ class EmpresaController extends Controller
         $empresa->email_company=$request->input('correo');
         $empresa->tipo_cliente=$request->input('tipo-cliente');
         $empresa->servicio=$request->input('servicio');
+        $empresa->name_bd_adm=$request->input('dbword');
         $empresa->update();
         return redirect()->route('empresas')->with(array(
             'message'=>'Empresa actualizada exitosamente'
