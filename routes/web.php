@@ -298,3 +298,13 @@ Route::post('agregar-tipodocumento',array(
     'middleware'=>'auth',
     'uses'=>'ConfiguracionController@agregar'
 ));
+
+Route::get('reporte-cliente/{id}',array(
+    'as'=>'reporte-cliente',
+    'uses'=>'ReporteController@cliente'
+));
+
+Route::post('actualizar-reporte/{id}',array(
+    'as'=>'actualizar-reporte',
+    'uses'=>'ReporteController@actualizar'
+));

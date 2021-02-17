@@ -29,6 +29,10 @@
             
             <span class="text">Esperando Confirmación</span>
         </button>
+        <button style="background-color: #4caf50 " class="btn btn-primary btn-icon-split">
+            
+            <span class="text">Visita Cumplida</span>
+        </button>
     </div>
 </div>
 <br>
