@@ -49,10 +49,13 @@
                                     
                                     <th>
                                         <center>
-                                        <a data-toggle="modal" data-target="#ModalActualizar{{$colaborador->id_contador}}" class="btn btn-warning btn-circle btn-sm">
+                                        <a href="{{url('perfil-colaborador/'.$colaborador->id_contador)}}" class="btn btn-acontis btn-circle btn-sm">
+                                            <i class="fas fa-arrow-alt-circle-right"></i>
+                                        </a>
+                                        <a data-toggle="modal" data-target="#ModalActualizar{{$colaborador->id_contador}}" class="btn btn-acontis btn-circle btn-sm">
                                             <i class="fas fa-info"></i>
                                         </a>
-                                        <a data-toggle="modal" data-target="#ModalEliminar{{$colaborador->id_contador}}" class="btn btn-danger btn-circle btn-sm">
+                                        <a data-toggle="modal" data-target="#ModalEliminar{{$colaborador->id_contador}}" class="btn btn-acontis btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                         </center>
@@ -69,7 +72,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">Cancelar</button>
-                                                <a type="button" href="{{url('eliminar-colaborador/'.$colaborador->id_contador)}}" class="btn btn-success">Eliminar</a>
+                                                <a type="button" href="{{url('eliminar-colaborador/'.$colaborador->id_contador)}}" class="btn btn-acontis">Eliminar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -183,7 +186,7 @@
                                                         </div>
                                                     </div>
                                                     <br>
-                                                    <button type="submit" class="btn btn-success">Actualizar</button>
+                                                    <button type="submit" class="btn btn-acontis">Actualizar</button>
                                                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
                                                 </form>
                                                 </div>
@@ -315,9 +318,6 @@
                                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
                                 </form>
                                 </div>
-                        
-                          
-                        
                         </div>
                     </div>
                 </div>

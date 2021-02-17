@@ -34,10 +34,10 @@
                                     
                                     <th>
                                         <center>
-                                        <a class="btn btn-info btn-circle btn-sm" onclick="empresasAsignadas({{$colaborador->id_contador}});">
+                                        <a class="btn btn-acontis btn-circle btn-sm" onclick="empresasAsignadas({{$colaborador->id_contador}});">
                                             <i class="fas fa-list"></i>
                                         </a>
-                                        <a class="btn btn-info btn-circle btn-sm" onclick="empresas({{$colaborador->id_contador}});">
+                                        <a class="btn btn-acontis btn-circle btn-sm" onclick="empresas({{$colaborador->id_contador}});">
                                             <i class="fas fa-pen"></i>
                                         </a>
                                         </center>
@@ -145,7 +145,7 @@
                 for(var x=0;x<arreglo.length;x++){
                     tabla+='<tr><td>'+arreglo[x].name_company+'</td>';
                     tabla+='<td>'+arreglo[x].email_company+'</td>';
-                    tabla+='<td><button class="btn btn-danger btn-circle btn-sm" onclick="desasignar('+idasesor+','+arreglo[x].id_company+')"><i class="fas fa-minus"></button></td>';
+                    tabla+='<td><button class="btn btn-acontis btn-circle btn-sm" onclick="desasignar('+idasesor+','+arreglo[x].id_company+')"><i class="fas fa-minus"></button></td>';
                 }
                 tabla+='</tbody>'
                 +'</table>';
@@ -214,7 +214,7 @@
                 for(var x=0;x<arreglo.length;x++){
                     tabla+='<tr><td>'+arreglo[x].name_company+'</td>';
                     tabla+='<td>'+arreglo[x].nit_company+'</td>';
-                    tabla+='<td><a class="btn btn-info btn-circle btn-sm" onclick="asignar('+colaborador+','+arreglo[x].id_company+');">';
+                    tabla+='<td><a class="btn btn-acontis btn-circle btn-sm" onclick="asignar('+colaborador+','+arreglo[x].id_company+');">';
                     tabla+='<i class="fas fa-plus"></i>';
                     tabla+='</a></td>';
                 }
@@ -236,8 +236,8 @@
             data:$("#form-asignadas").serialize()
         }).done(function(res){
             if(res=="R"){
-                var botones="<button class='btn btn-info' onclick='primario("+colaborador+","+empresa+");'>Primario</button>";
-                botones+="<button class='btn btn-info' onclick='secundario("+colaborador+","+empresa+");'>Segundario</button>";
+                var botones="<button class='btn btn-acontis' onclick='primario("+colaborador+","+empresa+");'>Primario</button>";
+                botones+="<button class='btn btn-acontis' onclick='secundario("+colaborador+","+empresa+");'>Segundario</button>";
                 $("#asignar-dos").html(botones);
                 $("#ModalAux").modal("show");
             }

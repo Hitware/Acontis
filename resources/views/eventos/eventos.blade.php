@@ -44,13 +44,13 @@
                                 <th>{{$evento->ubicacion}}</th>
                                 <th>
                                     <a data-toggle="modal"
-                                     data-target="#modalQR{{$evento->id_actividad}}" class="btn btn-info btn-circle btn-sm">
+                                     data-target="#modalQR{{$evento->id_actividad}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-qrcode"></i>
                                     </a>
-                                    <a data-toggle="modal" data-target="#ModalEditar{{$evento->id_actividad}}" class="btn btn-warning btn-circle btn-sm">
+                                    <a data-toggle="modal" data-target="#ModalEditar{{$evento->id_actividad}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <a data-toggle="modal" data-target="#modalEliminar{{$evento->id_actividad}}" class="btn btn-danger btn-circle btn-sm">
+                                    <a data-toggle="modal" data-target="#modalEliminar{{$evento->id_actividad}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </th>
@@ -157,7 +157,7 @@
                                             </center>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">Cerrar</button>
+                                            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-acontis">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>

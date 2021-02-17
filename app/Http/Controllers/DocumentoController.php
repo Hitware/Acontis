@@ -25,7 +25,6 @@ class DocumentoController extends Controller
                 $documento_path = time().$file->getClientOriginalName();
                 Storage::disk('documentos')->put($documento_path,\File::get($file));
                 $documento->documento=$documento_path;
-                
             }
         $documento->save(); 
         return back()->with('message','Documento Cargado');

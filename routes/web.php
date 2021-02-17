@@ -47,6 +47,12 @@ Route::post('/agregar-colaborador',array(
     'uses'=>'UserController@agregar'
 ));
 
+Route::get('/perfil-colaborador/{id}',array(
+    'as'=>'perfil-colaborador',
+    'middleware' => 'auth',
+    'uses'=>'UserController@perfil'
+));
+
 Route::post('actualizar-colaborador/{id}',array(
     'as'=>'actualizar-colaborador',
     'middleware' => 'auth',
@@ -76,6 +82,18 @@ Route::post('reportes-colaborador',array(
     'middleware' => 'auth',
     'uses'=>'UserController@reportespdf'
 ));
+
+Route::post('agregar-titulo/{id}',array(
+    'as'=>'agregar-titulo',
+    'middleware' => 'auth',
+    'uses'=>'TituloController@agregar'
+));
+
+Route::get('/titulo/{filename}',array(
+    'as'=>'tituloColaborador',
+    'uses'=>'TituloController@getTitulo'
+));
+
 
 Route::post('api/login','UserController@login');
 /*
@@ -216,8 +234,20 @@ Route::get('perfil-empresa/{idempresa}',array(
 
 Route::get('planeacion',array(
     'as'=>'planeacion',
-    'middleware' => 'auth',
+    'middleware'=>'auth',
     'uses'=>'VisitaController@planeacion'
+));
+
+Route::post('actualizar-planificacion',array(
+    'as'=>'actualizar-planificacion',
+    'middleware'=>'auth',
+    'uses'=>'VisitaController@update'
+));
+
+Route::post('borrar-planificacion',array(
+    'as'=>'borrar-planificacion',
+    'middleware'=>'auth',
+    'uses'=>'VisitaController@borrar'
 ));
 
 //DOCUMENTOS
@@ -241,12 +271,30 @@ Route::post('agregar-planeacion',array(
     'uses'=>'VisitaController@agregar'
 ));
 
-Route::get('planeacion/{mes}','VisitaController@index_month');
-
 //ALERTAS
 
 Route::post('agregar-alerta/{id_empresa}',array(
     'as'=>'agregar-alerta',
     'middleware'=>'auth',
     'uses'=>'AlertaController@agregar'
+));
+
+//Agregar Usuario Empresa
+
+Route::post('agregar-usuarioempresa/{id_empresa}',array(
+    'as'=>'agregar-usuario-empresa',
+    'middleware'=>'auth',
+    'uses'=>'UserController@addusuarioempresa'
+));
+
+Route::get('configuracion',array(
+    'as'=>'configuracion',
+    'middleware'=>'auth',
+    'uses'=>'ConfiguracionController@index'
+));
+
+Route::post('agregar-tipodocumento',array(
+    'as'=>'agregar-tipodocumento',
+    'middleware'=>'auth',
+    'uses'=>'ConfiguracionController@agregar'
 ));

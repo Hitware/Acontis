@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
+use App\Models\Configuracion;
+class ConfiguracionController extends Controller
+{
+    protected $table = 'configuracion';
+
+    public function index(){
+        $tipodocumentos=Configuracion::get();
+        return view('configuracion.index',array(
+            'tipodocumentos'=>$tipodocumentos
+        ));
+    }
+
+    public function agregar(Request $request){
+        $tipodocumento=new Configuracion();
+        $tipodocumento->nombre=$request->input('nombre');
+        $tipodocumento->save();
+        return redirect()->route('configuracion')->with(array(
+            'message'=>'Registro completado'
+        ));
+    }
+
+}

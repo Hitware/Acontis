@@ -9,18 +9,24 @@
 </head>
 <body>
     <div class="container">
-        <img height="10%" width="100%" src="img/cabezote.jpg" alt="">
+        <img height="10%" width="100%" src="crm.acontis.co/img/cabezote.jpg" alt="">
         <div class="row">
-            <p>Hola {{$nombre_empresa}}, esperamos que te encuentres muy bien.</p>
-            <p>El código QR que se muestra a continuación es para el registro de visitas que eventualmente nuestros
-                asesores harán a su establecimiento, es de vital importancia que sea compartido con las personas que atenderán a tu asesor ya que con este podremos generar un reporte de cada visita que hagamos. 
-            </p>
+            <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;" >Bienvenidos <b>{{$nombre_empresa}}</b>, estamos muy felices de poder compartir con ustedes este nuevo proyecto .</p>
+            <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;">A continuación compartimos el siguiente <b> código QR </b>, un registro único de identificación en nuestra base de 
+            dados que nos permitirá estar mas conectados y aprovechar todas las entradas de tus servicios para así trabajar
+             en la mejora continua de nuestros procesos.</p>
+             <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;" >Entre algunas de sus funciones, la mas importante sera el 
+                 registro de visitas y de actividades de nuestros asesores y así poder generar 
+                 una mayor trazabilidad sobre la prestación de nuestros servicios.</p>
+            <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;">
+                Quedate con nosotros y vive la nueva experiencia <b> ACONTIS digital!</b>
+            </p> 
         </div>
         <div>
             <img src="{!!$message->embedData($qr, 'QrCode.png', 'image/png')!!}">
          </div>
          <div class="row">
-             <p>Este correo es generado automaticamente, por favor no responder.</p>
+             <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;">Este correo es generado automáticamente, por favor no responder.</p>
          </div>
     </div>
     

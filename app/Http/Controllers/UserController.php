@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 use App\Models\Empresa;
-
+use App\Models\Configuracion;
+use App\Models\Titulo;
 use App\Mail\RegistroMailable;
 use Illuminate\Support\Facades\Mail;
 use PDF;
@@ -21,7 +22,9 @@ class UserController extends Controller
 
     public function colaboradores(){
         $id_user=auth()->user()->id_contador;
-        $user = User::get()->where('id_contador','!=',$id_user);
+        $user = User::get()->where('id_contador','!=',$id_user)
+        ->where('role_id','!=','5');
+
         //$user = User::get();
 
         return view('colaboradores.colaboradores',array(
@@ -93,7 +96,8 @@ class UserController extends Controller
 
     public function asignaciones(){
         $id_user=auth()->user()->id_contador;
-        $user = User::get()->where('id_contador','!=',$id_user);
+        $user = User::get()->where('id_contador','!=',$id_user)
+        ->where('role_id','!=','5');
         $empresas=Empresa::get();
         return view('colaboradores.asignaciones',array(
             'colaboradores'=>$user)    
@@ -112,5 +116,32 @@ class UserController extends Controller
         ->get();
         return response(json_encode($reportes),200)->header('Content-type','text/plain');
     }
+
+    public function addusuarioempresa($companie_id, Request $request){
+        $user = new User();
+        $user->name=$request->input('nombre');
+        $user->cargo=$request->input('cargo');
+        $user->email=$request->input('correo');
+        $user->password=bcrypt($request->input('password'));
+        $user->companie_id=$companie_id;
+        $user->role_id=5;
+        $user->save();
+        $message="Usuario Agregado Exitosamente";
+        return back()->with('message',$message);
+    }
+
+    public function perfil($id,Request $request){
+        $tipo_documentos=Configuracion::get();
+        $colaborador = User::where('id_contador','=',$id)->get();
+        $titulos = Titulo::where('id_contador','=',$id)
+        ->join('tipo_documento','titulo.tipo_titulo','=','tipo_documento.idconfiguracion')->get();
+        return view('colaboradores.perfil',array(
+            'colaborador'=>$colaborador,
+            'tipo_documentos'=>$tipo_documentos,
+            'titulos'=>$titulos
+        ));
+
+    }
+
 
 }

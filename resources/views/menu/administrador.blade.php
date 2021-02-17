@@ -3,6 +3,12 @@
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Inicio</span></a>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="{{url('configuracion')}}">
+        <i class="fas fa-cogs"></i>
+        <span>Configuración</span></a>
+</li>
+
 
 <!-- Divider -->
 <hr class="sidebar-divider">
@@ -30,6 +36,10 @@
     <a class="nav-link collapsed" href="{{url('eventos')}}">
         <i class="fas fa-fw fa-calendar-check"></i>
         <span>Eventos</span>
+    </a>
+    <a class="nav-link collapsed" href="{{url('planeacion')}}">
+        <i class="fas fa-fw fa-calendar-day"></i>
+        <span>Planeación</span>
     </a>
     <!--<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
