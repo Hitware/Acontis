@@ -16,7 +16,7 @@ class QRMailable extends Mailable
      *
      * @return void
      */
-    public $subject= "Aqui esta tu Codigo QR";
+    public $subject= "Aqui esta tu Código QR";
     public $qr;
     public $nombre_empresa;
 
