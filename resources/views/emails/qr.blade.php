@@ -26,7 +26,7 @@
             <img src="{!!$message->embedData($qr, 'QrCode.png', 'image/png')!!}">
          </div>
          <div class="row">
-             <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;">Este correo es generado automaticamente, por favor no responder.</p>
+             <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;">Este correo es generado automáticamente, por favor no responder.</p>
          </div>
     </div>
     
