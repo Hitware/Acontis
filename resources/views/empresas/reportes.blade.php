@@ -33,10 +33,10 @@
                                 <th>{{$empresa->telephone_company}}</th>
                                 <th>{{$empresa->representante_legal}}</th>
                                 <th>
-                                     <a data-toggle="modal" data-target="#modalEnviar{{$empresa->id_company}}" class="btn btn-info btn-circle btn-sm">
+                                     <a data-toggle="modal" data-target="#modalEnviar{{$empresa->id_company}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-share-square"></i>
                                     </a>
-                                    <button onclick="mostrarReporte({{$empresa->id_company}})" class="btn btn-warning btn-circle btn-sm">
+                                    <button onclick="mostrarReporte({{$empresa->id_company}})" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </th>
@@ -52,8 +52,8 @@
                                             Para confirmar el envio del QR a la empresa {{$empresa->name_company}} porfavor da clic en Enviar
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">Cerrar</button>
-                                            <a type="button" href="{{url('enviar-qr/'.$empresa->id_company)}}" class="btn btn-success">Enviar</a>
+                                            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-acontis">Cerrar</button>
+                                            <a type="button" href="{{url('enviar-qr/'.$empresa->id_company)}}" class="btn btn-acontis">Enviar</a>
 
                                         </div>
                                     </div>

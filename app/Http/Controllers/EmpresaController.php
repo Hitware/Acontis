@@ -9,7 +9,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Models\User;
 use App\Models\Empresa;
 use App\Models\EmpresaContador;
 use App\Models\Reporte;
@@ -246,12 +246,15 @@ class EmpresaController extends Controller
 
     public function perfilEmpresa($idempresa){
         $empresa=Empresa::where('id_company','=',$idempresa)->get();
+        $usuarios=User::where('companie_id','=',$idempresa)->get();
         $documentos=Documento::where('id_empresa','=',$idempresa)->get();
         $alertas=Alerta::where('id_empresa','=',$idempresa)->get();
+
         return view('empresas.perfil')->with(array(
             'empresa'=>$empresa,
             'documentos'=>$documentos,
             'alertas'=>$alertas,
+            'usuarios'=>$usuarios,
         ));
     }
 

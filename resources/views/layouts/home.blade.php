@@ -20,6 +20,9 @@
     <link href="{{URL::asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
 
     <link href="{{URL::asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{URL::asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css')}}"/>
+
+    
 
 </head>
 
@@ -43,7 +46,7 @@
             @elseif($user=Auth::user()->role_id=='4')
                 @include('menu.contador')
             @elseif($user=Auth::user()->role_id=='5')
-            @include('menu.cliente')
+                @include('menu.cliente')
             @endif
             <!-- Nav Item - Dashboard -->
             
@@ -178,8 +181,6 @@
     <script src="{{URL::asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{URL::asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{URL::asset('js/demo/datatables-demo.js')}}"></script>
-    
-
 </body>
 
 </html>
