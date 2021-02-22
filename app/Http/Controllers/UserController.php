@@ -86,6 +86,37 @@ class UserController extends Controller
         ));
     }
 
+    public function actualizarPerfil($id,Request $request){
+        $password=$request->input('password');
+        $colaborador =  User::find($id);
+        $colaborador->name=$request->input('nombre');
+        $colaborador->cedula=$request->input('cedula');
+        $colaborador->telefono=$request->input('telefono');
+        $colaborador->email=$request->input('correo');
+        $colaborador->direccion=$request->input('direccion');
+        $colaborador->cumpleanos=$request->input('fecha-nacimiento');
+        if($password!=""){
+            $colaborador->password=bcrypt($password);
+        }
+        $colaborador->alergias=$request->input('alergias');
+        $colaborador->antecedentes=$request->input('antecedentes');
+        $colaborador->nombre_contacto=$request->input('nombre-contacto');
+        $colaborador->telefono_contacto=$request->input('telefono-contacto');
+        $imagen=$request->file('imagen');
+        if($imagen){
+            $imagen_path = time();
+            Storage::disk('fotoperfil')->put($imagen_path,\File::get($imagen));
+            $colaborador->url_imagen=$imagen_path;
+        }
+
+        $colaborador->update();
+        return back()->with('message','Actualizacion de perfil exitosa');
+    }
+
+    public function getImagen($filename){
+        return Storage::response("fotoperfil/$filename");
+    }
+
     public function eliminar($id){
         $colaborador=User::find($id);
         $colaborador->delete();
@@ -140,7 +171,19 @@ class UserController extends Controller
             'tipo_documentos'=>$tipo_documentos,
             'titulos'=>$titulos
         ));
+    }
 
+    public function perfilUsuario(){
+        $tipo_documentos=Configuracion::get();
+        $id_user=auth()->user()->id_contador;
+        $colaborador = User::get()->where('id_contador','=',$id_user);
+        $titulos = Titulo::where('id_contador','=',$id_user)
+        ->join('tipo_documento','titulo.tipo_titulo','=','tipo_documento.idconfiguracion')->get();
+        return view('colaboradores.perfiluser',array(
+            'colaborador'=>$colaborador,
+            'tipo_documentos'=>$tipo_documentos,
+            'titulos'=>$titulos
+        ));
     }
 
 

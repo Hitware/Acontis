@@ -94,6 +94,22 @@ Route::get('/titulo/{filename}',array(
     'uses'=>'TituloController@getTitulo'
 ));
 
+Route::get('perfil-usuario',array(
+    'as'=>'perfil-usuario',
+    'middleware' => 'auth',
+    'uses'=>'UserController@perfilUsuario'
+));
+
+Route::post('actualizar-perfil/{id}',array(
+    'as'=>'actualizar-perfil',
+    'middleware' => 'auth',
+    'uses'=>'UserController@actualizarPerfil'
+));
+
+Route::get('/fotoperfil/{filename}',array(
+    'as'=>'fotoperfil',
+    'uses'=>'UserController@getImagen'
+));
 
 Route::post('api/login','UserController@login');
 /*
@@ -307,4 +323,23 @@ Route::get('reporte-cliente/{id}',array(
 Route::post('actualizar-reporte/{id}',array(
     'as'=>'actualizar-reporte',
     'uses'=>'ReporteController@actualizar'
+));
+
+Route::get('recorrer-eventos',array(
+    'as'=>'recorrer-eventos',
+    'uses'=>'UserController@recorrer'
+));
+
+//ALERTAS
+
+Route::get('alertas',array(
+    'as'=>'alertas',
+    'middleware'=>'auth',
+    'uses'=>'NotificacionesController@index'
+));
+
+Route::post('agregar-notificacion',array(
+    'as'=>'agregar-notificacion',
+    'middleware'=>'auth',
+    'uses'=>'NotificacionesController@agregar'
 ));

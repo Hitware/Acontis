@@ -98,3 +98,15 @@
         <i class="fas fa-fw fa-file-pdf"></i>
         <span>Por Colaborador</span></a>
 </li>
+
+<hr class="sidebar-divider">
+<div class="sidebar-heading">
+    Alertas
+</div>
+<li class="nav-item">
+    <a class="nav-link" href="{{url('alertas')}}">
+        <i class="fas fa-fw fa-bell"></i>
+        <span>Alertas</span></a>
+</li>
+
+<!-- Heading -->

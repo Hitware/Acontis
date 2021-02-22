@@ -14,6 +14,7 @@
     <!-- Custom fonts for this template-->
     <link href="{{URL::asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/style-calendar.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/perfil.css')}}" rel="stylesheet">
     
     <!-- Custom styles for this template-->
     <link href="{{URL::asset('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i')}}" rel="stylesheet">
@@ -83,13 +84,18 @@
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                        
                         <!-- Nav Item - Alerts -->
-                       
+                       @if (Auth::user()->role_id=='3' or Auth::user()->role_id=='4' )
+                           @include('colaboradores.alertas')
+                        @elseif(Auth::user()->role_id=='5')
+                            @include('empresas.alerta')
+                        @endif
                         <!-- Nav Item - Messages -->
                         
                         <div class="topbar-divider d-none d-sm-block"></div>
                     
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
+                            
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 
@@ -100,7 +106,15 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <div class="dropdown-divider"></div>
+                                @if($user=Auth::user()->role_id!='5')
+                                <a class="dropdown-item" href="{{route('perfil-usuario')}}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                @endif
+                                
+                                <div class="dropdown-divider">
+                                </div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                                 
