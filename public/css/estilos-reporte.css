@@ -39,7 +39,30 @@ table,tr,td{
     text-align: center;
 }
 
+.footer-referencia{
+    margin-top: 60%;
+    text-align: center;
+}
+
+
+.content{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 6%;
+    text-align: center;
+}
+
 .footer b{
+    color: gray;
+    size: 8px;
+}
+
+.footer-referencia b{
+    color: gray;
+    size: 8px;
+}
+
+.footer-referencia b{
     color: gray;
     size: 8px;
 }
@@ -47,4 +70,8 @@ table,tr,td{
 a{
     color: gray;
     text-decoration: none;
+}
+.fecha{
+    margin-right: 4%;
+    float:right;
 }

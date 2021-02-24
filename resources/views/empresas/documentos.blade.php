@@ -1,11 +1,16 @@
 <div class="container">
     <div class="right">
       <br>
-      <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-primary btn-icon-split">
+      <button data-toggle="modal" data-target="#ModalAgregarDoc" class="btn btn-primary btn-icon-split">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
         </span>
+        @if (Auth::user()->role_id==5)
+        <span class="text">Solicitar</span>
+        @else
         <span class="text">Agregar</span>
+        @endif
+
       </button>
     </div>
 </div>
@@ -16,7 +21,10 @@
             <tr>
                 <th>Clase Doc.</th>
                 <th>Documento</th>
+                <th>Fecha</th>
+                @if(Auth::user()->role_id!=5)
                 <th></th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -27,8 +35,37 @@
                         <td> @if (Storage::disk('documentos')->has($documento->documento))
                             <a target="blank" href="{{url('/documento/'.$documento->documento)}}">Documento</a>    
                         @endif </td>
-                        <td></td>
+                        <td>{{\FormatTime::LongTimeFilter($documento->created_at)}}</td>
+                        @if(Auth::user()->role_id!=5)
+                        <td><a data-toggle="modal" data-target="#ModalEditarDoc{{$documento->id_documento}}" class="btn btn-acontis btn-circle btn-sm">
+                            <i class="fas fa-pencil-alt"></i></td>
+                        @endif
                     </tr>
+                    <div id="ModalEditarDoc{{$documento->id_documento}}" class="modal fade">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5>Agregar Documento</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{url('/modificar-documento',['id'=>$documento->id_documento])}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group col">
+                                                    <label for="">Documento</label>
+                                                    <input type="file" id="documentou" name="documentou" class="form-control" required>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <br>
+                                        <button type="submit" class="btn btn-success">Cargar Documento</button>
+                                        <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
                 
             @else
@@ -39,7 +76,7 @@
         </tbody>
     </table>
 </div>
-<div id="ModalAgregar" class="modal fade">
+<div id="ModalAgregarDoc" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -51,7 +88,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group col">
-                                <label for="">Clase Documento</label>
+                                <label for="">Clase documento</label>
                                 <select name="clase-documento" id="clase-documento" class="form-control" required >
                                     <option value="clase1">Clase 1</option>
                                     <option value="clase2">Clase 2</option>
@@ -61,17 +98,17 @@
                                 </select>
                             </div>
                         </div>
+                        @if (Auth::user()->role_id!=5)
                         <div class="col-md-6">
                             <div class="form-group col">
                                 <label for="">Documento</label>
                                 <input type="file" id="documento" name="documento" class="form-control" required>
                             </div>
-                        </div>  
-                        
+                        </div> 
+                        @endif
                     </div>
                     <br>
-                    
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-success">Solicitar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
                 </form>
             </div>

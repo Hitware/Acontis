@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Documento;
+use App\Models\Empresa;
+use PDF;
 
 class DocumentoController extends Controller
 {
@@ -31,8 +33,36 @@ class DocumentoController extends Controller
         
     }
 
+    public function modificar($id_documento, Request $request){
+        $documento = Documento::find($id_documento);
+        $file=$request->file('documentou');
+            if($file){
+                $documento_path = time().$file->getClientOriginalName();
+                Storage::disk('documentos')->put($documento_path,\File::get($file));
+                $documento->documento=$documento_path;
+            }
+        $documento->update(); 
+        return back()->with('message','Documento Cargado');
+        
+    }
+
     public function getDocument($filename){
         return Storage::response("documentos/$filename");
+    }
+
+    public function solicitud(){
+        return view('empresas.solicitudes');
+    }
+
+    public function generarpdf(){
+        $id_empresa=auth()->user()->companie_id;
+        $empresa=Empresa::where('id_company','=',$id_empresa)->get();
+        $pdf = PDF::loadView('reportes.referencia',compact('empresa'));
+        $path = public_path('/');
+        $fileName =  time().'.'. 'pdf';
+        $pdf->save($path . '/' . $fileName);
+        $pdf = public_path($fileName);
+        return response()->download($pdf);
     }
 
 }

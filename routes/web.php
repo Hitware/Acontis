@@ -241,7 +241,6 @@ Route::get('/mis-empresas',array(
     'middleware' => 'auth',
     'uses'=>'EmpresaController@misEmpresas'
 ));
-
 Route::get('perfil-empresa/{idempresa}',array(
     'as'=>'perfil-empresa',
     'middleware' => 'auth',
@@ -274,11 +273,28 @@ Route::post('agregar-documento/{id_empresa}',array(
     'uses'=>'DocumentoController@agregar'
 ));
 
+Route::post('modificar-documento/{id_documento}',array(
+    'as'=>'modificar-documento',
+    'middleware'=>'auth',
+    'uses'=>'DocumentoController@modificar'
+));
+
 Route::get('/documento/{filename}',array(
     'as'=>'documentoEmpresa',
     'uses'=>'DocumentoController@getDocument'
 ));
 
+Route::get('solicitudes',array(
+    'as'=>'solicitudes',
+    'middleware'=>'auth',
+    'uses'=>'DocumentoController@solicitud'
+));
+
+Route::get('referencia-comercial',array(
+    'as'=>'referencia-comercial',
+    'middleware' => 'auth',
+    'uses'=>'DocumentoController@generarpdf'
+));
 //PLANEACION
 
 Route::post('agregar-planeacion',array(

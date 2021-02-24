@@ -1,12 +1,14 @@
 <div class="container">
     <div class="right">
       <br>
-      <button data-toggle="modal" data-target="#ModalAgregarDoc" class="btn btn-primary btn-icon-split">
+      @if (Auth::user()->role_id!=5)
+      <button data-toggle="modal" data-target="#ModalAgregarAlerta" class="btn btn-primary btn-icon-split">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
         </span>
         <span class="text">Agregar</span>
-      </button>
+      </button> 
+      @endif
     </div>
 </div>
 <br>
@@ -38,13 +40,13 @@
                @endforeach
            @else
              <div class="alert alert-warning" role="alert">
-                Hasta el momento no hay alertas creads
+                Hasta el momento no hay alertas creadas
                 </div>
            @endif
         </tbody>
     </table>
 </div>
-<div id="ModalAgregarDoc" class="modal fade">
+<div id="ModalAgregarAlerta" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
