@@ -5,38 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Custom styles for this template-->
-    <link href="css/estilos-reporte.css" rel="stylesheet">
+    <link href="css/estilos-referencia.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <title>Referencia Comercial</title>
 </head>
-<body style="background-image: url('img/hoja-reporte.png');background-size: 100% 90%;background-repeat: no-repeat;">
-    <div class="container">
+<body>
+    <div style="width: 100%">
+            <div>
+                <img width="100%" src="{{URL::asset('img/encabezado-reporte.png')}}" alt="">
+            </div>
+    </div>
+   <div class="container">
         @foreach ($empresa as $empresa)
-        <div class="fecha">
-            {{\Carbon\Carbon::setLocale('es')}}
-            <b>{{\Carbon\Carbon::parse(date('Y-m-d'))->toFormattedDateString()}}</b>
-        </div>
         <div class="content">
-            <b> Referencia Comercial
-            </b>
+            <br>
+            <center><b style="font-family: Verdana, Geneva, Tahoma, sans-serif;">CERTIFICACIÓN
+            </b></center> 
             <br>
             <br>
-            <p style="text-align: justify">
-                Por medio de la presente hago constar que, la empresa <b>{{$empresa->name_company}}</b>  con NIT <b>{{$empresa->nit_company}}</b>
- 
-                mantiene una cuenta comercial con nuestra empresa, desde el año 2005, periodo durante el cual ha cumplido satisfactoriamente, con sus pagos y compromisos, asumidos.
+            <p style="text-align: justify;font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                Certificamos qué, la empresa <b>{{$empresa->name_company}},</b> identificada con <b>NIT {{$empresa->nit_company}},</b>
+                mantiene vínculo comercial con <b>ASESORIAS CONTABLE DEL CARIBE S.A.S.</b> identificada con 
+                <b>NIT 900162902-8</b>  desde el --- de ----,mediante la prestación de nuestros servicios ---------, durante este tiempo han demostrado como clientes
+                 ser una empresa seria y cumplidora de sus obligaciones. 
             </p>
-        </div>
-        <div class="footer-referencia">
-            <b>Cartagena de India, Colombia <img src="img/reporte/pointer.png" alt="">  Manga Calle 28 # 27-05 Edf. Seaport Of. 901</b>
+            <p style="text-align:justify;font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                El presente se expide en la ciudad de Cartagena, a los {{date('d')}} días del mes de {{$mes}} de {{date('Y')}}.
+            </p>
             <br>
-            <b>Barranquilla, Colombia <img src="img/reporte/pointer.png" alt=""> Calle 85 Cra 51-B. Edificio  Quantum. Oficina 805</b>
-            <br>
-            <a href=""> <img src="img/reporte/telephone.png" alt=""> 6606840 <img src="img/reporte/fax.png" alt=""> 693 3015 <img src="img/reporte/correo-electronico.png" alt=""> servicioalcliente@acontis.co</a> 
-            <br>
-            <br>
-            <a href=""> <img src="img/reporte/youtube.png" alt="">  <img src="img/reporte/instagram.png" alt="">  <img src="img/reporte/facebook.png" alt=""> @acontis.co <img src="img/reporte/linkedin.png" alt=""> ACONTIS</a>
+            <div class="paco">
+                <img src="{{URL::asset('img/firma-guido.png')}}" alt="">
+            </div>
+            <div class="paco">
+                <b>GUIDO PRESUTTI BERRIO</b>
+            </div>
+            <div class="paco">
+                <b>Gerente General</b>
+            </div>
         </div>
         @endforeach
-    </div>
+</div>
+   
 </body>
 </html>

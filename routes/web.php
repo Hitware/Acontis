@@ -216,7 +216,7 @@ Route::get('eventos',array(
     'uses'=>'EventoController@eventos'
 ));
 
-Route::post('/agregar-planeacion',array(
+Route::post('/agregar-evento',array(
     'as'=>'agregar-evento',
     'middelware'=>'auth',
     'uses'=>'EventoController@agregar'
@@ -273,6 +273,12 @@ Route::post('agregar-documento/{id_empresa}',array(
     'uses'=>'DocumentoController@agregar'
 ));
 
+Route::post('agregar-doc',array(
+    'as'=>'agregar-doc',
+    'middleware'=>'auth',
+    'uses'=>'DocumentoController@add'
+));
+
 Route::post('modificar-documento/{id_documento}',array(
     'as'=>'modificar-documento',
     'middleware'=>'auth',
@@ -282,6 +288,11 @@ Route::post('modificar-documento/{id_documento}',array(
 Route::get('/documento/{filename}',array(
     'as'=>'documentoEmpresa',
     'uses'=>'DocumentoController@getDocument'
+));
+
+Route::get('/documentoacontis/{filename}',array(
+    'as'=>'documentoacontis',
+    'uses'=>'DocumentoController@getDocEmpresa'
 ));
 
 Route::get('solicitudes',array(
@@ -330,6 +341,13 @@ Route::post('agregar-tipodocumento',array(
     'middleware'=>'auth',
     'uses'=>'ConfiguracionController@agregar'
 ));
+
+Route::get('eliminar-tipodocumento/{id}',array(
+    'as'=>'eliminar-tipodocumento',
+    'middleware'=>'auth',
+    'uses'=>'ConfiguracionController@eliminar'
+));
+
 
 Route::get('reporte-cliente/{id}',array(
     'as'=>'reporte-cliente',

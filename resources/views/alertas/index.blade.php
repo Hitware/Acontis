@@ -8,7 +8,7 @@
 @endif
 <div id="container">
     <div id="left">
-        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-primary btn-icon-split">
+        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-acontis btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>

@@ -10,7 +10,6 @@ body {
 
 .container {
     width: 100%;
-    margin-top: 15%;
 }
 
 table {
@@ -74,4 +73,11 @@ a{
 .fecha{
     margin-right: 4%;
     float:right;
+}
+
+.paco{
+padding-top: 0px;
+padding-bottom: 0px;
+text-align: justify;
+font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

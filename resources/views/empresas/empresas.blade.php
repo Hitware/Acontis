@@ -9,13 +9,13 @@
 @endif
 <div id="container">
     <div id="right">
-        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-primary btn-icon-split">
+        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-acontis btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
             <span class="text">Agregar</span>
         </button>
-        <a href="{{route('excel-empresas')}}" class="btn btn-primary btn-icon-split">
+        <a href="{{route('excel-empresas')}}" class="btn btn-acontis btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-file-excel"></i>
             </span>

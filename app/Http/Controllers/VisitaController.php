@@ -47,7 +47,12 @@ class VisitaController extends Controller
         $evento->id_empresa=$request->input('empresa');
         $evento->descripcion=$request->input('descripcion');
         $evento->estado='Programado';
+        if($evento->jornada=="Mañana"){
         $evento->color='#2196f3';
+        }
+        else{
+        $evento->color='#072a65';
+        }
         if($request->input('asesor')!=null){
             $evento->id_contador=$request->input('asesor');
         }

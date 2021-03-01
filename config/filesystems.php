@@ -49,6 +49,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'documentosacontis' => [
+            'driver' => 'local',
+            'root' => storage_path('app/documentosacontis'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
         'titulos' => [
             'driver' => 'local',
             'root' => storage_path('app/titulos'),

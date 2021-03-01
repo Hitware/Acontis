@@ -2,7 +2,7 @@
     <div class="right">
       <br>
       @if (Auth::user()->role_id!=5)
-      <button data-toggle="modal" data-target="#ModalAgregarAlerta" class="btn btn-primary btn-icon-split">
+      <button data-toggle="modal" data-target="#ModalAgregarAlerta" class="btn btn-acontis btn-icon-split">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
         </span>

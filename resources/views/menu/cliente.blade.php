@@ -21,7 +21,7 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="{{url('solicitudes')}}">
         <i class="fas fa-fw fa-file-pdf"></i>
-        <span>Solicitudes</span>
+        <span>Certificaciones</span>
     </a>
 </li>
 

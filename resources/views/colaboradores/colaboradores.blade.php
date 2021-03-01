@@ -9,7 +9,7 @@
 @endif
 <div id="container">
     <div id="left">
-        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-primary btn-icon-split">
+        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-acontis btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
@@ -17,10 +17,10 @@
         </button>
     </div>
 </div>
-
+<br>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6>Tabla de Colaboradores</h6>
+           
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -55,9 +55,11 @@
                                         <a data-toggle="modal" data-target="#ModalActualizar{{$colaborador->id_contador}}" class="btn btn-acontis btn-circle btn-sm">
                                             <i class="fas fa-info"></i>
                                         </a>
+                                        @if (Auth::user()->id_contador!=$colaborador->id_contador)
                                         <a data-toggle="modal" data-target="#ModalEliminar{{$colaborador->id_contador}}" class="btn btn-acontis btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                        @endif
                                         </center>
                                      </th>
                                 </tr>
