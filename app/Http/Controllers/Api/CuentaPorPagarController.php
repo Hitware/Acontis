@@ -9,6 +9,6 @@ class CuentaPorPagarController extends Controller
 {
     public function index()
     {
-        return CuentaPorPagar::all();
+        return CuentaPorPagar::paginate(100);
     }
 }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Empresa;
 use Closure;
 use Illuminate\Http\Request;
 
-class ChangeConnectionCompanyBd
+class CorsCustomAllowedAllRequest
 {
     /**
      * Handle an incoming request.
@@ -17,10 +16,10 @@ class ChangeConnectionCompanyBd
      */
     public function handle(Request $request, Closure $next)
     {
-        $id = $request->route("id");
-        $company = Empresa::findOrFail($id);
-        $company->changeConnection();
-        
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD');
+
         return $next($request);
     }
 }

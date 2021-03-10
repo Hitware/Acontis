@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CuentaPorCobrarController;
 use App\Http\Controllers\Api\CuentaPorPagarController;
 use App\Http\Controllers\Api\MovimientosContablesController;
 use App\Http\Controllers\Api\CuentaPorCobrarDetalladaController;
+use App\Http\Controllers\Api\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,18 +23,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('empresa/{id}/cuentas-por-cobrar', [CuentaPorCobrarController::class, "index"])
-    ->middleware("change-connection-company-bd")
+Route::middleware('auth:api')->get('/empresas', function (Request $request) {
+    return App\Models\Empresa::all();
+});
+
+Route::post('auth/login', [LoginController::class, 'index']);
+
+Route::get('/empresa/{id}/cuentas-por-cobrar', [CuentaPorCobrarController::class, "index"])
+    ->middleware(["auth:api","change-connection-company-bd"])
     ->name("api.empresa.por_cobrar");
 
-Route::get('empresa/{id}/cuentas-por-pagar', [CuentaPorPagarController::class, "index"])
-    ->middleware("change-connection-company-bd")
+Route::get('/empresa/{id}/cuentas-por-pagar', [CuentaPorPagarController::class, "index"])
+    ->middleware(["auth:api","change-connection-company-bd"])
     ->name("api.empresa.por_pagar");
 
-Route::get('empresa/{id}/movimientos-contables', [MovimientosContablesController::class, "index"])
-    ->middleware("change-connection-company-bd")
+Route::get('/empresa/{id}/movimientos-contables', [MovimientosContablesController::class, "index"])
+    ->middleware(["auth:api","change-connection-company-bd"])
     ->name("api.empresa.movimientos_contables");
 
-Route::get('empresa/{id}/cuenta-por-cobrar-detallada', [CuentaPorCobrarDetalladaController::class, "index"])
-    ->middleware("change-connection-company-bd")
+Route::get('/empresa/{id}/cuenta-por-cobrar-detallada', [CuentaPorCobrarDetalladaController::class, "index"])
+    ->middleware(["auth:api","change-connection-company-bd"])
     ->name("api.empresa.por_cobrar.detalle");

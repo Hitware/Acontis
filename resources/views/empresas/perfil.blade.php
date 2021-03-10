@@ -1,6 +1,5 @@
 @extends('layouts.home')
 @section('content')
-@foreach ($empresa as $empresa)
 <h1 class="h3 mb-2 text-gray-800">{{$empresa->name_company}}</h1>
 @if (session('message'))
 <div class="alert alert-warning" role="alert">
@@ -42,7 +41,6 @@
           </div> 
     </div>
 </div>
-@endforeach
 @endsection
 
 @section('script')
@@ -60,24 +58,27 @@
     mounted() {
       let vm = this;
 
-      axios.get('{{ route("api.empresa.por_cobrar", [ "id" => request()->route("idempresa") ]) }}')
+      axios.defaults.headers.common['Authorization'] = "Bearer {{ auth()->user()->createToken('authToken')->accessToken }}";
+
+
+      axios.get('{{ route("api.empresa.por_cobrar", [ "id" => request()->route("id") ]) }}')
         .then(function (response) {
-          vm.por_cobrar = response.data;
+          vm.por_cobrar = response.data.data;
         });
 
-      axios.get('{{ route("api.empresa.por_pagar", [ "id" => request()->route("idempresa") ]) }}')
+      axios.get('{{ route("api.empresa.por_pagar", [ "id" => request()->route("id") ]) }}')
         .then(function (response) {
-          vm.por_pagar = response.data;
+          vm.por_pagar = response.data.data;
         });
       
-      axios.get('{{ route("api.empresa.movimientos_contables", [ "id" => request()->route("idempresa") ]) }}')
+      axios.get('{{ route("api.empresa.movimientos_contables", [ "id" => request()->route("id") ]) }}')
         .then(function (response) {
-          vm.movimientos_contables = response.data;
+          vm.movimientos_contables = response.data.data;
         });
 
-      axios.get('{{ route("api.empresa.por_cobrar.detalle", [ "id" => request()->route("idempresa") ]) }}')
+      axios.get('{{ route("api.empresa.por_cobrar.detalle", [ "id" => request()->route("id") ]) }}')
         .then(function (response) {
-          vm.por_cobrar_detallada = response.data;
+          vm.por_cobrar_detallada = response.data.data;
         });
     }
   })

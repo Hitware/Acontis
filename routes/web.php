@@ -226,9 +226,9 @@ Route::get('/mis-empresas',array(
     'uses'=>'EmpresaController@misEmpresas'
 ));
 
-Route::get('perfil-empresa/{idempresa}',array(
+Route::get('perfil-empresa/{id}',array(
     'as'=>'perfil-empresa',
-    'middleware' => 'auth',
+    'middleware' => ['auth'],
     'uses'=>'EmpresaController@perfilEmpresa'
 ));
 

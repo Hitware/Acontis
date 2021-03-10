@@ -182,5 +182,5 @@
     <script src="{{URL::asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{URL::asset('js/demo/datatables-demo.js')}}"></script>
 </body>
-
+@yield('script')
 </html>

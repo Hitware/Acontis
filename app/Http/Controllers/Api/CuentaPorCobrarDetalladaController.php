@@ -9,6 +9,6 @@ class CuentaPorCobrarDetalladaController extends Controller
 {
     public function index()
     {
-        return CuentaPorCobrarDetallada::all();
+        return CuentaPorCobrarDetallada::paginate(100);
     }
 }

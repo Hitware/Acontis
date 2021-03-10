@@ -9,6 +9,6 @@ class MovimientosContablesController extends Controller
 {
     public function index()
     {
-        return MovimientosContables::where("Tipo_Documento","rc")->get();
+        return MovimientosContables::where("Tipo_Documento","rc")->paginate(100);
     }
 }

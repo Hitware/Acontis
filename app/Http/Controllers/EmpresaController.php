@@ -22,6 +22,11 @@ use Illuminate\Support\Facades\Mail;
 use App\Exports\EmpresasExport;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use PDF;
+use App\Models\CuentaPorCobrar;
+use App\Models\CuentaPorCobrarDetallada;
+use App\Models\CuentaPorPagar;
+use App\Models\MovimientosContables;
+
 class EmpresaController extends Controller
 {
     protected $table = 'companies';
@@ -83,8 +88,6 @@ class EmpresaController extends Controller
             'message'=>'Empresa eliminada exitosamente'
         ));
     }
-
-    
 
     public function enviarCorreo($id){
         $email=DB::table('companies')->where('id_company','=',$id)->value('email_company');
@@ -246,18 +249,18 @@ class EmpresaController extends Controller
     }
 
     public function perfilEmpresa($idempresa){
-        $empresa=Empresa::where('id_company','=',$idempresa)->get();
-        $usuarios=User::where('companie_id','=',$idempresa)->get();
+        $empresa=Empresa::where('id_company','=',$idempresa)->first();
+        $usuarios=User::all();
         $documentos=Documento::where('id_empresa','=',$idempresa)->get();
         $alertas=Alerta::where('id_empresa','=',$idempresa)->get();
-
-        return view('empresas.perfil')->with(array(
-            'empresa'=>$empresa,
-            'documentos'=>$documentos,
-            'alertas'=>$alertas,
-            'usuarios'=>$usuarios,
-        ));
+   
+        return view('empresas.perfil')->with(
+            compact(
+                'empresa',
+                'usuarios',
+                'documentos',
+                'alertas'
+            )
+        );
     }
-
-
 }
