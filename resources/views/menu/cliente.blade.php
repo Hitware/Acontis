@@ -24,6 +24,12 @@
         <span>Certificaciones</span>
     </a>
 </li>
+<li class="nav-item">
+    <a class="nav-link collapsed" href="{{url('reportes')}}">
+        <i class="fas fa-fw fa-file-pdf"></i>
+        <span>Reportes</span>
+    </a>
+</li>
 
 <!-- Heading -->
 

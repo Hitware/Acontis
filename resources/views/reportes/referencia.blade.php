@@ -15,7 +15,7 @@
                 <img width="100%" src="{{URL::asset('img/encabezado-reporte.png')}}" alt="">
             </div>
     </div>
-   <div class="container">
+   <div class="container-referencia">
         @foreach ($empresa as $empresa)
         <div class="content">
             <br>

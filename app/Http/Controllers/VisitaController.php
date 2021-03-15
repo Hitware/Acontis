@@ -17,21 +17,25 @@ class VisitaController extends Controller
 {
     protected $table = 'evento';
     
-    public function planeacion(){
+    public function planeacion($sede){
         $id_user=auth()->user()->id_contador;
 
         if(auth()->user()->role_id=='3'){
-            $empresas=Empresa::get();
+            $empresas=Empresa::get()
+            ->where('sede','=',$sede)
+            ->sortBy('name_company');
         }
         else{
             $empresas=Empresa::where('id_asesor','=',$id_user)
-            ->orWhere('id_asesordos','=',$id_user)->get();
+            ->where('sede','=',$sede)
+            ->orWhere('id_asesordos','=',$id_user)->get()->sortBy('name_company');
         }
         $usuarios=User::where('role_id','!=','5')->get();
         $visitas=DB::table('evento')
             ->join('companies','evento.id_empresa','=','companies.id_company')
             ->join('contadores','evento.id_contador','=','contadores.id_contador')
             ->select('contadores.*','companies.*','evento.*')
+            ->where('companies.sede','=',$sede)
             ->get();
         return view('colaboradores.planeacion',array(
             'empresas'=>$empresas,
@@ -60,7 +64,7 @@ class VisitaController extends Controller
             $evento->id_contador=auth()->user()->id_contador;
         }
         $evento->save();
-        return redirect()->route('planeacion')->with(array(
+        return back()->with(array(
             'message'=>'Visita programada correctamente'
         ));
     }

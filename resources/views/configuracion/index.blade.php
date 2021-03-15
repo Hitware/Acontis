@@ -18,7 +18,10 @@
                   <a class="nav-link" id="profile-tab" data-toggle="tab" href="#certificaciones" role="tab" aria-controls="profile" aria-selected="false">Documentos y Certificaciones</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#servicios" role="tab" aria-controls="contact" aria-selected="false">Servicios y Tipo Clientes</a>
+                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#servicios" role="tab" aria-controls="contact" aria-selected="false">Servicios</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#tipoclientes" role="tab" aria-controls="contact" aria-selected="false"> Tipo Clientes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#alertas" role="tab" aria-controls="contact" aria-selected="false">Tipo de Documentos</a>
@@ -26,14 +29,19 @@
               </ul>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="sedes" role="tabpanel" aria-labelledby="home-tab">
-                   
+                   @include('configuracion.sedes')
                 </div>
                 <div class="tab-pane fade" id="certificaciones" role="tabpanel" aria-labelledby="profile-tab">
                     <br>
                     @include('configuracion.documentos')
                 </div>
                 <div class="tab-pane fade" id="servicios" role="tabpanel" aria-labelledby="contact-tab">
-                    
+                    <br>
+                    @include('configuracion.servicios')
+                </div>
+                <div class="tab-pane fade" id="tipoclientes" role="tabpanel" aria-labelledby="contact-tab">
+                    <br>
+                    @include('configuracion.tipoclientes')
                 </div>
                 <div class="tab-pane fade" id="alertas" role="tabpanel" aria-labelledby="contact-tab">
                     <br>

@@ -23,6 +23,7 @@
         </a>
     </div>
 </div>
+<br>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6>Lista de Empresas</h6>
@@ -150,26 +151,31 @@
                                                             <input type="text" id="nit" value="{{$empresa->nit_company}}" name="nit" class="form-control">
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="form-group col">
                                                             <label for="">Correo principal</label>
                                                             <input type="text" id="correo" name="correo" value="{{$empresa->email_company}}" class="form-control">
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="form-group col">
                                                             <label for="">Telefono</label>
                                                             <input type="text" id="telefono" value="{{$empresa->telephone_company}}" name="telefono" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
+                                                        <label for="">Sede</label>
+                                                        <select name="sede" id="sede" class="form-control" required>
+                                                            <option value="" selected disabled>--SELECCIONE--</option>
+                                                            @include('empresas.sedes')
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
                                                         <div class="form-group col">
                                                             <label for="">Tipo de Cliente</label>
                                                             <select name="tipo-cliente" id="tipo-cliente" class="form-control">
                                                                 <option value="" selected disabled>--SELECCIONE--</option>
-                                                                <option value="CO">CO</option>
-                                                                <option value="PH">PH</option>
-                                                                <option value="PN">PN</option>
+                                                                @include('empresas.tipoclientes')
                                                             </select>
                                                         </div>
                                                     </div>
@@ -178,11 +184,7 @@
                                                             <label for="">Servicio</label>
                                                             <select name="servicio" id="servicio" class="form-control">
                                                                 <option value="" selected disabled>--SELECCIONE--</option>
-                                                                <option value="Contable">Contable</option>
-                                                                <option value="Revisoría Fiscal">Revisoría Fiscal</option>
-                                                                <option value="Auditoría">Auditoría</option>
-                                                                <option value="Asesoria Tributaría">Asesoria Tributaría</option>
-                                                                <option value="Declaración de Renta">Declaración de Renta</option>
+                                                                @include('empresas.servicios')
                                                             </select>
                                                         </div>
                                                     </div>
@@ -223,28 +225,28 @@
                                     <div class="col-md-4">
                                         <div class="form-group col">
                                             <label for="">Nombre de la empresa</label>
-                                            <input type="text" id="nombre-empresa" name="nombre-empresa" class="form-control">
+                                            <input type="text" id="nombre-empresa" name="nombre-empresa" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group col">
                                             <label for="">Representante legal</label>
-                                            <input type="text" id="representante-legal" name="representante-legal" class="form-control">
+                                            <input type="text" id="representante-legal" name="representante-legal" class="form-control" required>
                                         </div>
                                     </div>  
                                     <div class="col-md-4">
                                         <div class="form-group col">
                                             <label for="">Nit</label>
-                                            <input type="text" id="nit" name="nit" class="form-control">
+                                            <input type="text" id="nit" name="nit" class="form-control" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group col">
                                             <label for="">Correo principal</label>
-                                            <input type="text" id="correo" name="correo" class="form-control">
+                                            <input type="text" id="correo" name="correo" class="form-control" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group col">
                                             <label for="">Telefono</label>
                                             <input type="text" id="telefono" name="telefono" class="form-control">
@@ -252,12 +254,19 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group col">
+                                            <label for="">Sede</label>
+                                            <select name="sede" id="sede" class="form-control" required>
+                                                <option value="" selected disabled>--SELECCIONE--</option>
+                                                @include('empresas.sedes')
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group col">
                                             <label for="">Tipo de Cliente</label>
                                             <select name="tipo-cliente" id="tipo-cliente" class="form-control">
                                                 <option value="" selected disabled>--SELECCIONE--</option>
-                                                <option value="CO">CO</option>
-                                                <option value="PH">PH</option>
-                                                <option value="PN">PN</option>
+                                                @include('empresas.tipoclientes')
                                             </select>
                                         </div>
                                     </div>
@@ -266,11 +275,7 @@
                                             <label for="">Servicio</label>
                                             <select name="servicio" id="servicio" class="form-control">
                                                 <option value="" selected disabled>--SELECCIONE--</option>
-                                                <option value="Contable">Contable</option>
-                                                <option value="Revisoría Fiscal">Revisoría Fiscal</option>
-                                                <option value="Auditoría">Auditoría</option>
-                                                <option value="Asesoria Tributaría">Asesoria Tributaría</option>
-                                                <option value="Declaración de Renta">Declaración de Renta</option>
+                                                @include('empresas.servicios')
                                             </select>
                                         </div>
                                     </div>

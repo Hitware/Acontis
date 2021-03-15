@@ -13,6 +13,8 @@ use App\Models\User;
 use App\Models\Empresa;
 use App\Models\Configuracion;
 use App\Models\Titulo;
+use App\Models\Educacion;
+use App\Models\ExperienciaLaboral;
 use App\Mail\RegistroMailable;
 use Illuminate\Support\Facades\Mail;
 use PDF;
@@ -33,7 +35,8 @@ class UserController extends Controller
 
     public function reportes(){
         $id_user=auth()->user()->id_contador;
-        $user = User::get()->where('id_contador','!=',$id_user);
+        $user = User::get()->where('id_contador','!=',$id_user)
+        ->where('role_id','!=','5');
         //$user = User::get();
 
         return view('colaboradores.reportes',array(
@@ -183,6 +186,16 @@ class UserController extends Controller
             'colaborador'=>$colaborador,
             'tipo_documentos'=>$tipo_documentos,
             'titulos'=>$titulos
+        ));
+    }
+
+    public function hojadevida(){
+        $id_user=auth()->user()->id_contador;
+        $educacion=Educacion::where('id_usuario','=',$id_user)->get();
+        $experiencia=ExperienciaLaboral::where('id_usuario','=',$id_user)->get();
+        return view('colaboradores.hojadevida',array(
+            'educacion'=>$educacion,
+            'experiencia'=>$experiencia
         ));
     }
 

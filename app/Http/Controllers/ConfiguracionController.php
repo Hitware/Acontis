@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Configuracion;
 use App\Models\Documento;
+use App\Models\Servicio;
+use App\Models\TipoCliente;
 class ConfiguracionController extends Controller
 {
     protected $table = 'configuracion';
@@ -18,9 +20,13 @@ class ConfiguracionController extends Controller
         $tipodocumentos=Configuracion::get();
         $documentos=Documento::where('tipo','=','0')
         ->get();
+        $servicios=Servicio::get();
+        $tipoclientes=TipoCliente::get();
         return view('configuracion.index',array(
             'tipodocumentos'=>$tipodocumentos,
-            'documentos'=>$documentos
+            'documentos'=>$documentos,
+            'servicios'=>$servicios,
+            'tipoclientes'=>$tipoclientes
         ));
     }
 
@@ -36,9 +42,7 @@ class ConfiguracionController extends Controller
     public function eliminar($id,Request $request){
         $tipodocumento=Configuracion::find($id);
         $tipodocumento->delete();
-        return redirect()->route('configuracion')->with(array(
-            'message'=>'Registro eliminado'
-        ));
+        return back()->with('message','Documento Cargado');
     }
 
 }
