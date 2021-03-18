@@ -18,7 +18,12 @@
         <span>Mi Empresa</span>
     </a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link collapsed" href="{{url('solicitudes')}}">
+        <i class="fas fa-fw fa-file-pdf"></i>
+        <span>Certificaciones</span>
+    </a>
+</li>
 
 <!-- Heading -->
 

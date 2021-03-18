@@ -1,7 +1,7 @@
 @extends('layouts.home')
 @section('content')
 @foreach ($colaborador as $colaborador)
-    <h1 class="h3 mb-2 text-gray-800">{{$colaborador->name}}</h1>
+    <h1 class="h3 mb-2 text-gray-800">{{$colaborador->name}}</h1>   
     @if (session('message'))
     <div class="alert alert-warning" role="alert">
         {{session('message')}}
@@ -9,7 +9,7 @@
     @endif
     <div class="right">
         <br>
-        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-primary btn-icon-split">
+        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-acontis btn-icon-split">
           <span class="icon text-white-50">
               <i class="fas fa-plus"></i>
           </span>

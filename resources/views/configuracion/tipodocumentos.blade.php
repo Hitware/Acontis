@@ -1,15 +1,16 @@
 <div id="left">
-    <button data-toggle="modal" data-target="#ModalAddD" class="btn btn-primary btn-icon-split">
+    <button data-toggle="modal" data-target="#ModalAddD" class="btn btn-acontis btn-icon-split">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
         </span>
         <span class="text">Agregar</span>
     </button>
 </div>
+<br>
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" id="dataTable">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -22,11 +23,29 @@
                             <tr>
                                 <th>{{$documento->nombre}}</th>
                                 <th>
-                                    <a data-toggle="modal" data-target="#ModalActualizar{{$documento->idconfiguracion}}" class="btn btn-acontis btn-circle btn-sm">
-                                        <i class="fas fa-info"></i>
+                                    <a data-toggle="modal" data-target="#ModalEliminar{{$documento->idconfiguracion}}" class="btn btn-acontis btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </th>
                             </tr>
+                            <div id="ModalEliminar{{$documento->idconfiguracion}}" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Estas seguro de eliminar {{$documento->nombre}} del sistema?
+                                            <br>
+                                            Todos los datos del sistema relacionados a esta empresa se eliminaran.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">Cancelar</button>
+                                            <a type="button" href="{{url('eliminar-tipodocumento/'.$documento->idconfiguracion)}}" class="btn btn-acontis">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     @else
                     <div class="alert alert-warning" role="alert">

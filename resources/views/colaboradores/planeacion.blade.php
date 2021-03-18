@@ -18,8 +18,7 @@
         <h3>Estados de visitas programadas</h3>
 
         <button style="background-color: #2196f3" class="btn btn-primary btn-icon-split">
-            
-            <span class="text">Programada</span>
+           <span class="text">Programada</span>
         </button>
         <button style="background-color: #ffc107 " class="btn btn-primary btn-icon-split">
             
@@ -28,6 +27,10 @@
         <button style="background-color: #ff9800 " class="btn btn-primary btn-icon-split">
             
             <span class="text">Esperando Confirmación</span>
+        </button>
+        <button style="background-color: #4caf50 " class="btn btn-primary btn-icon-split">
+            
+            <span class="text">Visita Cumplida</span>
         </button>
     </div>
 </div>

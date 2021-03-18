@@ -240,6 +240,88 @@ class EmpresaController extends Controller
         return response()->download($pdf);
     }
 
+    public function generarEstadoCuentaPdf(Request $request, $id) {
+        $request->validate([
+            "fecha_inicial" => "required",
+            "fecha_final" => "required",
+            "codigo" => "required"
+        ]);
+
+        $empresa = Empresa::findOrFail($id);
+        $empresa->changeConnection();
+        $fechaInicial = $request->input("fecha_inicial");
+        $fechaFinal = $request->input("fecha_final");
+        
+        $codigos = [
+            "deudores" => [
+                130505,
+                130510,
+                130515,
+                132005,
+                132010,
+                132015,
+            ],
+            "cuentas-por-cobrar-a-socios" => [
+                132505,
+                132510,
+            ],
+            "anticipos-y-avances" => [
+                133005,
+                133010,
+                133015,
+                133020,
+                133025,
+                133030,
+                133095,
+                133099,
+            ],
+            "cuentas-por-cobrar-a-trabajadores" => [
+                136505,
+                136510,
+                136515,
+                136520,
+                136525,
+                136530,
+                136595,
+            ],
+            "prestamos-a-particulares" => [
+                137005,
+                137010,
+            ],
+            "deudas-de-dificil-cobro" => [
+                1390
+            ],
+            "cuentas-por-pagar-a-proveedores" => [
+                22
+            ],
+            "cuentas-por-pagar" => [
+                2305,
+                2335
+            ],
+            "ingresos-operacionales" => [
+                41
+            ],
+            "cuentas-por-pagar-a-socios" => [
+                2355
+            ],
+            "ingresos-no-operacionales" => [
+                42
+            ]
+        ];
+
+        $codigoCuenta = $request->input("codigo");
+
+        $movimientos = MovimientosContables::whereIn("Codigo_Cuenta", $codigos[$codigoCuenta])
+            ->whereBetween("Fecha", [$fechaInicial, $fechaFinal])
+            ->get();
+
+        $pdf = PDF::loadView('empresas.reportes.estado_cuenta', compact("empresa","fechaInicial", "fechaFinal", "movimientos"));
+
+        //return view('empresas.reportes.estado_cuenta', compact("empresa"));
+        return $pdf->download("{$fechaInicial}-{$fechaFinal}-{$empresa->name_company}.pdf");
+    }
+    
+
     public function misEmpresas(){
         $id_user=auth()->user()->id_contador;
         $empresas=Empresa::where('id_asesor','=',$id_user)->get();

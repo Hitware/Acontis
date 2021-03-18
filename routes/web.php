@@ -94,6 +94,22 @@ Route::get('/titulo/{filename}',array(
     'uses'=>'TituloController@getTitulo'
 ));
 
+Route::get('perfil-usuario',array(
+    'as'=>'perfil-usuario',
+    'middleware' => 'auth',
+    'uses'=>'UserController@perfilUsuario'
+));
+
+Route::post('actualizar-perfil/{id}',array(
+    'as'=>'actualizar-perfil',
+    'middleware' => 'auth',
+    'uses'=>'UserController@actualizarPerfil'
+));
+
+Route::get('/fotoperfil/{filename}',array(
+    'as'=>'fotoperfil',
+    'uses'=>'UserController@getImagen'
+));
 
 Route::post('api/login','UserController@login');
 /*
@@ -192,6 +208,12 @@ Route::get('generar-pdf/{id_reporte}',array(
 ));
 
 
+Route::get('empresa/{id}/estado-cuenta/pdf',array(
+    'as'=>'generar-pdf',
+    'middleware' => ["auth"],
+    'uses'=>'EmpresaController@generarEstadoCuentaPdf'
+));
+
 //RUTAS DE EVENTOS
 
 Route::get('eventos',array(
@@ -200,7 +222,7 @@ Route::get('eventos',array(
     'uses'=>'EventoController@eventos'
 ));
 
-Route::post('/agregar-planeacion',array(
+Route::post('/agregar-evento',array(
     'as'=>'agregar-evento',
     'middelware'=>'auth',
     'uses'=>'EventoController@agregar'
@@ -226,7 +248,7 @@ Route::get('/mis-empresas',array(
     'uses'=>'EmpresaController@misEmpresas'
 ));
 
-Route::get('perfil-empresa/{id}',array(
+Route::get('perfil-empresa/{idempresa}',array(
     'as'=>'perfil-empresa',
     'middleware' => ['auth'],
     'uses'=>'EmpresaController@perfilEmpresa'
@@ -258,11 +280,39 @@ Route::post('agregar-documento/{id_empresa}',array(
     'uses'=>'DocumentoController@agregar'
 ));
 
+Route::post('agregar-doc',array(
+    'as'=>'agregar-doc',
+    'middleware'=>'auth',
+    'uses'=>'DocumentoController@add'
+));
+
+Route::post('modificar-documento/{id_documento}',array(
+    'as'=>'modificar-documento',
+    'middleware'=>'auth',
+    'uses'=>'DocumentoController@modificar'
+));
+
 Route::get('/documento/{filename}',array(
     'as'=>'documentoEmpresa',
     'uses'=>'DocumentoController@getDocument'
 ));
 
+Route::get('/documentoacontis/{filename}',array(
+    'as'=>'documentoacontis',
+    'uses'=>'DocumentoController@getDocEmpresa'
+));
+
+Route::get('solicitudes',array(
+    'as'=>'solicitudes',
+    'middleware'=>'auth',
+    'uses'=>'DocumentoController@solicitud'
+));
+
+Route::get('referencia-comercial',array(
+    'as'=>'referencia-comercial',
+    'middleware' => 'auth',
+    'uses'=>'DocumentoController@generarpdf'
+));
 //PLANEACION
 
 Route::post('agregar-planeacion',array(
@@ -297,4 +347,40 @@ Route::post('agregar-tipodocumento',array(
     'as'=>'agregar-tipodocumento',
     'middleware'=>'auth',
     'uses'=>'ConfiguracionController@agregar'
+));
+
+Route::get('eliminar-tipodocumento/{id}',array(
+    'as'=>'eliminar-tipodocumento',
+    'middleware'=>'auth',
+    'uses'=>'ConfiguracionController@eliminar'
+));
+
+
+Route::get('reporte-cliente/{id}',array(
+    'as'=>'reporte-cliente',
+    'uses'=>'ReporteController@cliente'
+));
+
+Route::post('actualizar-reporte/{id}',array(
+    'as'=>'actualizar-reporte',
+    'uses'=>'ReporteController@actualizar'
+));
+
+Route::get('recorrer-eventos',array(
+    'as'=>'recorrer-eventos',
+    'uses'=>'UserController@recorrer'
+));
+
+//ALERTAS
+
+Route::get('alertas',array(
+    'as'=>'alertas',
+    'middleware'=>'auth',
+    'uses'=>'NotificacionesController@index'
+));
+
+Route::post('agregar-notificacion',array(
+    'as'=>'agregar-notificacion',
+    'middleware'=>'auth',
+    'uses'=>'NotificacionesController@agregar'
 ));

@@ -8,7 +8,7 @@
 @endif
 <div id="container">
     <div id="left">
-        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-primary btn-icon-split">
+        <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-acontis btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
@@ -188,6 +188,7 @@
                                 <label for="">Clase</label>
                                 <select name="tipo" id="tipo" class="form-control" required>
                                     <option value="">--SELECCIONE--</option>
+                                    <option value="Reunion">Formación</option>
                                     <option value="Reunion">Reunión</option>
                                     <option value="Actividad">Actividad</option>
                                     <option value="Tarea">Tarea</option>
@@ -228,9 +229,7 @@
                         <div class="col-md-8">
                             <div class="form-group col">
                                 <label for="">Descripcion</label>
-                                <textarea name="descripcion" id="descripcion" cols="10" rows="5" class="form-control">
-
-                                </textarea>
+                                <textarea name="descripcion" id="descripcion" cols="10" rows="5" class="form-control"></textarea>
                             </div>
                         </div>
                         
