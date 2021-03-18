@@ -15,6 +15,8 @@ use App\Models\EmpresaContador;
 use App\Models\Reporte;
 use App\Models\Alerta;
 use App\Models\Documento;
+use App\Models\Servicio;
+use App\Models\TipoCliente;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\QRMailable;
@@ -31,10 +33,14 @@ class EmpresaController extends Controller
 {
     protected $table = 'companies';
 
-    public function empresas(){
-        $empresas=Empresa::get();
+    public function empresas($sede){
+        $empresas=Empresa::where('sede','=',$sede)->get();
+        $servicios=Servicio::get();
+        $tipoclientes=TipoCliente::get();
         return view('empresas.empresas',array(
-            'empresas'=>$empresas
+            'empresas'=>$empresas,
+            'servicios'=>$servicios,
+            'tipoclientes'=>$tipoclientes
         ));
     }
 
@@ -46,20 +52,44 @@ class EmpresaController extends Controller
     }
     
     public function agregar(Request $request){
+        $correo_empresa = $request->input('correo');
+        $empresab = Empresa::where('email_company','=',$correo_empresa)->get();
 
-        $empresa = new Empresa();
-        $empresa->name_company=$request->input('nombre-empresa');
-        $empresa->representante_legal=$request->input('representante-legal');
-        $empresa->nit_company=$request->input('nit');
-        $empresa->address_company=$request->input('direccion');
-        $empresa->telephone_company=$request->input('telefono');
-        $empresa->email_company=$request->input('correo');
-        $empresa->tipo_cliente=$request->input('tipo-cliente');
-        $empresa->servicio=$request->input('servicio');
-        $empresa->save();
-        return redirect()->route('empresas')->with(array(
-            'message'=>'Empresa agregada exitosamente'
-        ));
+        if(count($empresab)>0){
+            return redirect()->route('empresas')->with(array(
+                'message'=>'Ya hay una empresa con este correo registrado'
+            ));
+        }
+        else{
+            $empresa = new Empresa();
+            $empresa->name_company=$request->input('nombre-empresa');
+            $empresa->representante_legal=$request->input('representante-legal');
+            $empresa->nit_company=$request->input('nit');
+            $empresa->address_company=$request->input('direccion');
+            $empresa->telephone_company=$request->input('telefono');
+            $empresa->email_company=$request->input('correo');
+            $empresa->tipo_cliente=$request->input('tipo-cliente');
+            $empresa->servicio=$request->input('servicio');
+            $empresa->sede=$request->input('sede');
+            $empresa->save(); 
+            $id_empresa =  Empresa::latest('id_company')->first(); 
+            
+            $user_empresa= new User();
+            $user_empresa->name=$request->input('nombre-empresa');
+            $user_empresa->email=$request->input('correo');
+            $user_empresa->password=bcrypt($request->input('nit'));
+            $user_empresa->role_id=5;
+            $user_empresa->companie_id=$id_empresa->id_company;
+            $user_empresa->save();
+            
+            return back()->with(array(
+                'message'=>'Empresa creada exitosamente'
+            ));
+        }
+       
+        //Crear usuario de empresa
+       
+
         
     }
 
@@ -72,11 +102,12 @@ class EmpresaController extends Controller
         $empresa->telephone_company=$request->input('telefono');
         $empresa->email_company=$request->input('correo');
         $empresa->tipo_cliente=$request->input('tipo-cliente');
+        $empresa->sede=$request->input('sede');
         $empresa->servicio=$request->input('servicio');
         $empresa->name_bd_adm=$request->input('dbword');
         $empresa->update();
-        return redirect()->route('empresas')->with(array(
-            'message'=>'Empresa actualizada exitosamente'
+        return back()->with(array(
+            'message'=>'Empresa actualizada'
         ));
         
     }

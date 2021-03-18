@@ -24,4 +24,26 @@ class ReporteController extends Controller
         return view('reportes.gracias');
     }
 
+    public function indicadores(){
+        return view('reportes.indicadores');
+    }
+
+    public function reportes(){
+
+        $idempresa=auth()->user()->companie_id;
+
+        $reportes=DB::table('companies_contadores')
+        ->join('escaneos','companies_contadores.id_companycontador','=','escaneos.id_companie_contador')
+        ->join('reportes','escaneos.id_codigo','=','reportes.id_codigo')
+        ->join('contadores','companies_contadores.id_contador','=','contadores.id_contador')
+        ->where('companies_contadores.id_company','=',$idempresa )
+        ->where('escaneos.estado_reporte','=','true')
+        ->select('companies_contadores.*','escaneos.*','reportes.*','contadores.*')
+        ->get();
+
+        return view('empresas.listreportes',array(
+            'reportes'=>$reportes
+        ));
+    }
+
 }

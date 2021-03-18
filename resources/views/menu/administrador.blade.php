@@ -26,33 +26,43 @@
     </a>
     
 </li>
-
-<!-- Nav Item - Utilities Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed" href="{{url('/empresas')}}">
+    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+        aria-controls="collapseTwo">
         <i class="fas fa-fw fa-building"></i>
         <span>Empresas</span>
     </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            @foreach ($sedes as $sede)
+                <a class="collapse-item" href="{{url('empresas/'.$sede->nombre_ciudad)}}">{{$sede->nombre_ciudad}}</a>
+            @endforeach
+        </div>
+    </div>
+</li>
+<!-- Nav Item - Utilities Collapse Menu -->
+<li class="nav-item">
     <a class="nav-link collapsed" href="{{url('eventos')}}">
         <i class="fas fa-fw fa-calendar-check"></i>
         <span>Eventos</span>
     </a>
-    <a class="nav-link collapsed" href="{{url('planeacion')}}">
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePlaneacion" aria-expanded="false"
+        aria-controls="collapsePlaneacion">
         <i class="fas fa-fw fa-calendar-day"></i>
         <span>Planeación</span>
     </a>
-    <!--<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+    <div id="collapsePlaneacion" class="collapse" aria-labelledby="headingTwo"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
+            @foreach ($sedes as $sede)
+                <a class="collapse-item" href="{{url('planeacion/'.$sede->nombre_ciudad)}}">{{$sede->nombre_ciudad}}</a>
+            @endforeach
         </div>
-    </div>-->
+    </div>
 </li>
-
 <!-- Divider -->
 <hr class="sidebar-divider">
 
@@ -97,6 +107,11 @@
     <a class="nav-link" href="{{url('reportes-colaborador')}}">
         <i class="fas fa-fw fa-file-pdf"></i>
         <span>Por Colaborador</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{url('indicadores')}}">
+        <i class="fas fa-fw fa-poll"></i>
+        <span>Indicadores</span></a>
 </li>
 
 <hr class="sidebar-divider">

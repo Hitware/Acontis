@@ -71,6 +71,37 @@ Route::get('asignaciones',array(
     'uses'=>'UserController@asignaciones'
 ));
 
+Route::get('hoja-de-vida',array(
+    'as'=>'hoja-de-vida',
+    'middleware'=>'auth',
+    'uses'=>'UserController@hojadevida'
+));
+
+Route::post('agregar-educacion',array(
+    'as'=>'agregar-educacion',
+    'middleware'=>'auth',
+    'uses'=>'EducacionController@agregar'
+));
+
+Route::get('eliminar-educacion/{id}',array(
+    'as'=>'eliminar-educacion',
+    'middleware'=>'auth',
+    'uses'=>'EducacionController@eliminar'
+));
+
+
+Route::post('agregar-experiencia',array(
+    'as'=>'agregar-experiencia',
+    'middleware'=>'auth',
+    'uses'=>'ExperienciaLaboralController@agregar'
+));
+
+Route::get('eliminar-experiencia/{id}',array(
+    'as'=>'eliminar-experiencia',
+    'middleware'=>'auth',
+    'uses'=>'ExperienciaLaboralController@eliminar'
+));
+
 Route::get('reportes-colaborador',array(
     'as'=>'reportes-colaborador',
     'middleware' => 'auth',
@@ -113,11 +144,11 @@ Route::get('/fotoperfil/{filename}',array(
 
 Route::post('api/login','UserController@login');
 /*
-
+planeacion
 Rutas de Empresas
 
 */
-Route::get('/empresas',array(
+Route::get('/empresas/{nombre}',array(
     'as'=>'empresas',
     'middleware' => 'auth',
     'uses'=>'EmpresaController@empresas'
@@ -254,7 +285,7 @@ Route::get('perfil-empresa/{idempresa}',array(
     'uses'=>'EmpresaController@perfilEmpresa'
 ));
 
-Route::get('planeacion',array(
+Route::get('planeacion/{sede}',array(
     'as'=>'planeacion',
     'middleware'=>'auth',
     'uses'=>'VisitaController@planeacion'
@@ -355,10 +386,20 @@ Route::get('eliminar-tipodocumento/{id}',array(
     'uses'=>'ConfiguracionController@eliminar'
 ));
 
+Route::get('reportes',array(
+    'as'=>'reportes',
+    'middleware'=>'auth',
+    'uses'=>'ReporteController@reportes'
+));
 
 Route::get('reporte-cliente/{id}',array(
     'as'=>'reporte-cliente',
     'uses'=>'ReporteController@cliente'
+));
+
+Route::get('indicadores',array(
+    'as'=>'indicadores',
+    'uses'=>'ReporteController@indicadores'
 ));
 
 Route::post('actualizar-reporte/{id}',array(
@@ -383,4 +424,43 @@ Route::post('agregar-notificacion',array(
     'as'=>'agregar-notificacion',
     'middleware'=>'auth',
     'uses'=>'NotificacionesController@agregar'
+));
+
+//SEDES
+
+Route::post('agregar-sede',array(
+    'as'=>'agregar-sede',
+    'middleware'=>'auth',
+    'uses'=>'SedeController@agregar'
+));
+
+Route::get('eliminar-sede/{id}',array(
+    'as'=>'eliminar-sede',
+    'middleware'=>'auth',
+    'uses'=>'SedeController@eliminar'
+));
+
+//
+Route::post('agregar-servicio',array(
+    'as'=>'agregar-servicio',
+    'middleware'=>'auth',
+    'uses'=>'ServicioController@agregar'
+));
+
+Route::get('eliminar-servicio/{id}',array(
+    'as'=>'eliminar-servicio',
+    'middleware'=>'auth',
+    'uses'=>'ServicioController@eliminar'
+));
+
+Route::post('agregar-tipocliente',array(
+    'as'=>'eliminar-tipocliente',
+    'middleware'=>'auth',
+    'uses'=>'TipoClienteController@agregar'
+));
+
+Route::get('eliminar-tipocliente/{id}',array(
+    'as'=>'eliminar-tipocliente',
+    'middleware'=>'auth',
+    'uses'=>'TipoClienteController@eliminar'
 ));

@@ -100,8 +100,14 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                                <img class="img-profile rounded-circle" 
+
+                                @if (Storage::disk('fotoperfil')->has(Auth::user()->url_imagen))
+                                    <img class="img-profile rounded-circle"
+                                     src="{{url('/fotoperfil/'.Auth::user()->url_imagen)}}">
+                                @else
+                                    <img class="img-profile rounded-circle" 
                                     src="{{URL::asset('img/undraw_profile.svg')}}">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -110,6 +116,10 @@
                                 <a class="dropdown-item" href="{{route('perfil-usuario')}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
+                                </a>
+                                <a class="dropdown-item" href="{{route('hoja-de-vida')}}">
+                                    <i class="fas fa-user-graduate fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Hoja de Vida
                                 </a>
                                 @endif
                                 
@@ -137,7 +147,7 @@
 
                     <!-- Page Heading -->
                     @yield('content')
-
+                    
                 </div>
                 <!-- /.container-fluid -->
 

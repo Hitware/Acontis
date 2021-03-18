@@ -37,7 +37,6 @@
                                         <div class="modal-body">
                                             ¿Estas seguro de eliminar {{$documento->nombre}} del sistema?
                                             <br>
-                                            Todos los datos del sistema relacionados a esta empresa se eliminaran.
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">Cancelar</button>
