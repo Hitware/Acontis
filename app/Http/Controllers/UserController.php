@@ -14,7 +14,9 @@ use App\Models\Empresa;
 use App\Models\Configuracion;
 use App\Models\Titulo;
 use App\Models\Educacion;
+use App\Models\Formacion;
 use App\Models\ExperienciaLaboral;
+use App\Models\Anexo;
 use App\Mail\RegistroMailable;
 use Illuminate\Support\Facades\Mail;
 use PDF;
@@ -107,7 +109,7 @@ class UserController extends Controller
         $colaborador->telefono_contacto=$request->input('telefono-contacto');
         $imagen=$request->file('imagen');
         if($imagen){
-            $imagen_path = time();
+            $imagen_path = time().$file->getClientOriginalName();;
             Storage::disk('fotoperfil')->put($imagen_path,\File::get($imagen));
             $colaborador->url_imagen=$imagen_path;
         }
@@ -192,10 +194,14 @@ class UserController extends Controller
     public function hojadevida(){
         $id_user=auth()->user()->id_contador;
         $educacion=Educacion::where('id_usuario','=',$id_user)->get();
+        $formacion=Formacion::where('id_usuario','=',$id_user)->get();
         $experiencia=ExperienciaLaboral::where('id_usuario','=',$id_user)->get();
+        $anexos=Anexo::where('id_usuario','=',$id_user)->get();
         return view('colaboradores.hojadevida',array(
             'educacion'=>$educacion,
-            'experiencia'=>$experiencia
+            'formacion'=>$formacion,
+            'experiencia'=>$experiencia,
+            'anexos'=>$anexos,
         ));
     }
 

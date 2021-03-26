@@ -39,7 +39,7 @@ table,tr,td{
 }
 
 .footer-referencia{
-    margin-top: 60%;
+    margin-top: 10%;
     text-align: center;
 }
 
@@ -47,7 +47,7 @@ table,tr,td{
 .content{
     margin-left: 10%;
     margin-right: 10%;
-    margin-top: 6%;
+    margin-top: 12%;
     text-align: center;
 }
 
@@ -76,7 +76,9 @@ a{
 }
 
 .paco{
-padding-top: 0px;
-padding-bottom: 0px;
-text-align: justify;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: justify;
+    color: gray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -89,6 +89,17 @@ Route::get('eliminar-educacion/{id}',array(
     'uses'=>'EducacionController@eliminar'
 ));
 
+Route::post('agregar-formacion',array(
+    'as'=>'agregar-formacion',
+    'middleware'=>'auth',
+    'uses'=>'FormacionController@agregar'
+));
+
+Route::get('eliminar-formacion/{id}',array(
+    'as'=>'eliminar-formacion',
+    'middleware'=>'auth',
+    'uses'=>'FormacionController@eliminar'
+));
 
 Route::post('agregar-experiencia',array(
     'as'=>'agregar-experiencia',
@@ -100,6 +111,18 @@ Route::get('eliminar-experiencia/{id}',array(
     'as'=>'eliminar-experiencia',
     'middleware'=>'auth',
     'uses'=>'ExperienciaLaboralController@eliminar'
+));
+
+Route::post('agregar-anexo',array(
+    'as'=>'agregar-anexo',
+    'middleware'=>'auth',
+    'uses'=>'AnexoController@agregar'
+));
+
+Route::get('eliminar-anexo/{id}',array(
+    'as'=>'eliminar-anexo',
+    'middleware'=>'auth',
+    'uses'=>'AnexoController@eliminar'
 ));
 
 Route::get('reportes-colaborador',array(
@@ -284,6 +307,12 @@ Route::get('planeacion/{sede}',array(
     'uses'=>'VisitaController@planeacion'
 ));
 
+Route::get('planeacionasesor',array(
+    'as'=>'planeacionasesor',
+    'middleware'=>'auth',
+    'uses'=>'VisitaController@planeacionasesor'
+));
+
 Route::post('actualizar-planificacion',array(
     'as'=>'actualizar-planificacion',
     'middleware'=>'auth',
@@ -456,4 +485,32 @@ Route::get('eliminar-tipocliente/{id}',array(
     'as'=>'eliminar-tipocliente',
     'middleware'=>'auth',
     'uses'=>'TipoClienteController@eliminar'
+));
+
+Route::post('agregar-periodo/{id}',array(
+    'as'=>'agregar-periodo',
+    'middleware'=>'auth',
+    'uses'=>'PeriodoController@agregar'
+));
+Route::get('eliminar-anexo/{id}',array(
+    'as'=>'eliminar-anexo',
+    'middleware'=>'auth',
+    'uses'=>'AnexoController@eliminar'
+));
+
+Route::get('documentos-periodo/{id}',array(
+    'as'=>'documentos-periodo',
+    'middleware'=>'auth',
+    'uses'=>'PeriodoController@periodo'
+));
+
+Route::post('agregar-documentoperiodo/{id}',array(
+    'as'=>'agregar-documentoperiodo',
+    'middleware'=>'auth',
+    'uses'=>'DocumentoPeriodoController@agregar'
+));
+
+Route::get('/documentoperiodo/{filename}',array(
+    'as'=>'documentoperiodo',
+    'uses'=>'DocumentoPeriodoController@getDocument'
 ));

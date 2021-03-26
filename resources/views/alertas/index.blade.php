@@ -74,10 +74,20 @@
                                         </div>
                                     </div>
                                     
+                                    <div class="col-md-12" id="tipo-empresas" style="display: none" >
+                                        <div class="form-group col">
+                                            <label for="">¿Que tipo de empresas?</label>
+                                            <select class="form-control" name="clase_empresas" id="clase_empresas" required>
+                                                <option value="">--SELECCIONE--</option>
+                                                <option value="1">ESAL</option>
+                                                <option value="2">CO</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                         
                                     <div class="col-md-12">
                                         <div class="form-group col">
-                                            <label for="">Titulo</label>
+                                            <label for="">Asunto</label>
                                             <input type="text" class="form-control" id="titulo" name="titulo" required>
                                         </div>
                                     </div>
@@ -100,4 +110,15 @@
         </div>
     </div>
 </div>
+<script src="{{URL::asset('fullcalendar/jquery.min.js')}}"></script>
+<script>
+    $( "#tipo" ).change(function() {
+        if($("#tipo").val()=="2"){
+            $("#tipo-empresas").show();
+        }
+        else{
+            $("#tipo-empresas").hide();
+        }
+    });
+</script>
 @endsection

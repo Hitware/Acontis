@@ -5,6 +5,7 @@ namespace App\Http\View\Composers;
 use App\Models\Notificaciones;
 use App\Models\Sede;
 use App\Models\User;
+use App\Models\Empresa;
 use Illuminate\View\View;
 
 class NotificacionComposer
@@ -20,13 +21,20 @@ class NotificacionComposer
             else if($id_user==5){
                 $role=2;
             }
-            $iduser=auth()->user()->id_contador;
-            $view->with('notifications', Notificaciones::where('tipo','=',$role)->get());
-            $view->with('sedes', Sede::get());
+            if(auth()->user()->id_companie!=null){
+                $idc=auth()->user()->id_companie;
+                $view->with('notifications', Notificaciones::where('tipo','=',$role)->get());
+                $view->with('empresal', Empresa::where('id_company','=',$idc)->get());
+                $view->with('sedes', Sede::get());
+            }
+            else{
+                $view->with('notifications', Notificaciones::where('tipo','=',$role)->get());
+                $view->with('sedes', Sede::get());
+            }
+            
         }
         else{
             $view->with('notifications', Notificaciones::get());
-
         }
         
         

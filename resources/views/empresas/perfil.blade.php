@@ -17,10 +17,7 @@
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#inicio" role="tab" aria-controls="home" aria-selected="true">Usuarios</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#documentos" role="tab" aria-controls="profile" aria-selected="false">Documentos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#estados" role="tab" aria-controls="contact" aria-selected="false">Estados Contables</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#documentos" role="tab" aria-controls="profile" aria-selected="false">Scanner</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#alertas" role="tab" aria-controls="contact" aria-selected="false">Alertas</a>
@@ -32,9 +29,6 @@
             </div>
             <div class="tab-pane fade" id="documentos" role="tabpanel" aria-labelledby="profile-tab">
                 @include('empresas.documentos')
-            </div>
-            <div class="tab-pane fade" id="estados" role="tabpanel" aria-labelledby="contact-tab">
-                3
             </div>
             <div class="tab-pane fade" id="alertas" role="tabpanel" aria-labelledby="contact-tab">
                 @include('empresas.alertas')

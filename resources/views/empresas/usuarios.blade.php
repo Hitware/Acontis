@@ -1,5 +1,5 @@
-<div class="container">
-    <div class="right">
+<div>
+    <div>
       <br>
       <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-acontis btn-icon-split">
         <span class="icon text-white-50">

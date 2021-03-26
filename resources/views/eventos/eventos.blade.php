@@ -191,6 +191,7 @@
                                     <option value="Reunion">Formación</option>
                                     <option value="Reunion">Reunión</option>
                                     <option value="Actividad">Actividad</option>
+                                    <option value="Evento">Evento</option>
                                     <option value="Tarea">Tarea</option>
                                     <option value="Recordatorio">Recordatorio</option>
                                 </select>

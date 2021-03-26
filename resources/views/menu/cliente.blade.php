@@ -20,7 +20,7 @@
 </li>
 <li class="nav-item">
     <a class="nav-link collapsed" href="{{url('solicitudes')}}">
-        <i class="fas fa-fw fa-file-pdf"></i>
+        <i class="fas fa-fw fa-file-signature"></i>
         <span>Certificaciones</span>
     </a>
 </li>
@@ -30,7 +30,22 @@
         <span>Reportes</span>
     </a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#">
+        <i class="fas fa-fw fa-calculator"></i>
+        <span>
+            Información Contable
+        </span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>
+           Mi Información Contable
+        </span>
+    </a>
+</li>
 <!-- Heading -->
 
 

@@ -1,4 +1,4 @@
-<div class="container">
+<div >
     <div class="right">
       <br>
       @if (Auth::user()->role_id!=5)

@@ -1,6 +1,6 @@
 @extends('layouts.home')
 @section('content')
-    <h2>Planeacion</h2>
+    <h2>Planeación</h2>
 @if (session('message'))
 <div class="alert alert-warning" role="alert">
 {{session('message')}}

@@ -30,12 +30,36 @@ class VisitaController extends Controller
             ->where('sede','=',$sede)
             ->orWhere('id_asesordos','=',$id_user)->get()->sortBy('name_company');
         }
-        $usuarios=User::where('role_id','!=','5')->get();
+        $usuarios=User::where('role_id','!=','5')->get()->sortBy('name');
         $visitas=DB::table('evento')
             ->join('companies','evento.id_empresa','=','companies.id_company')
             ->join('contadores','evento.id_contador','=','contadores.id_contador')
             ->select('contadores.*','companies.*','evento.*')
             ->where('companies.sede','=',$sede)
+            ->get();
+        return view('colaboradores.planeacion',array(
+            'empresas'=>$empresas,
+            'visitas'=>$visitas,
+            'usuarios'=>$usuarios
+        ));
+    }
+
+    public function planeacionasesor(){
+        $id_user=auth()->user()->id_contador;
+
+        if(auth()->user()->role_id=='3'){
+            $empresas=Empresa::get()
+            ->sortBy('name_company');
+        }
+        else{
+            $empresas=Empresa::get()
+            ->sortBy('name_company');
+        }
+        $usuarios=User::where('role_id','!=','5')->get()->sortBy('name');
+        $visitas=DB::table('evento')
+            ->join('companies','evento.id_empresa','=','companies.id_company')
+            ->join('contadores','evento.id_contador','=','contadores.id_contador')
+            ->select('contadores.*','companies.*','evento.*')
             ->get();
         return view('colaboradores.planeacion',array(
             'empresas'=>$empresas,

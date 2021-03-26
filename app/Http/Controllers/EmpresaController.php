@@ -17,6 +17,7 @@ use App\Models\Alerta;
 use App\Models\Documento;
 use App\Models\Servicio;
 use App\Models\TipoCliente;
+use App\Models\Periodo;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\QRMailable;
@@ -29,7 +30,13 @@ class EmpresaController extends Controller
     protected $table = 'companies';
 
     public function empresas($sede){
-        $empresas=Empresa::where('sede','=',$sede)->get();
+        if($sede=="general"){
+            $empresas=Empresa::get();
+
+        }
+        else{
+            $empresas=Empresa::where('sede','=',$sede)->get();
+        }
         $servicios=Servicio::get();
         $tipoclientes=TipoCliente::get();
         return view('empresas.empresas',array(
@@ -80,12 +87,7 @@ class EmpresaController extends Controller
             return back()->with(array(
                 'message'=>'Empresa creada exitosamente'
             ));
-        }
-       
-        //Crear usuario de empresa
-       
-
-        
+        }   
     }
 
     public function actualizar($id,Request $request){
@@ -280,12 +282,14 @@ class EmpresaController extends Controller
         $usuarios=User::where('companie_id','=',$idempresa)->get();
         $documentos=Documento::where('id_empresa','=',$idempresa)->get();
         $alertas=Alerta::where('id_empresa','=',$idempresa)->get();
+        $periodos=Periodo::where('id_companie','=',$idempresa)->get();
 
         return view('empresas.perfil')->with(array(
             'empresa'=>$empresa,
             'documentos'=>$documentos,
             'alertas'=>$alertas,
             'usuarios'=>$usuarios,
+            'periodos'=>$periodos,
         ));
     }
 

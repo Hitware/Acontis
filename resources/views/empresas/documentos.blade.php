@@ -1,17 +1,7 @@
-<div class="container">
-    <div class="right">
+<div>
+    <div>
       <br>
-      <button data-toggle="modal" data-target="#ModalAgregarDoc" class="btn btn-acontis btn-icon-split">
-        <span class="icon text-white-50">
-            <i class="fas fa-plus"></i>
-        </span>
-        @if (Auth::user()->role_id==5)
-        <span class="text">Solicitar</span>
-        @else
-        <span class="text">Agregar</span>
-        @endif
-
-      </button>
+    
     </div>
 </div>
 <br>

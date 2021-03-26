@@ -1,7 +1,7 @@
 
 <br>
 <div id="left">
-    <button data-toggle="modal" data-target="#ModalAddD" class="btn btn-acontis btn-icon-split">
+    <button data-toggle="modal" data-target="#ModalAddSedes" class="btn btn-acontis btn-icon-split">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
         </span>
@@ -58,7 +58,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ModalAddD">
+<div class="modal fade" id="ModalAddSedes">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -35,6 +35,7 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{url('empresas/general')}}">General</a>
             @foreach ($sedes as $sede)
                 <a class="collapse-item" href="{{url('empresas/'.$sede->nombre_ciudad)}}">{{$sede->nombre_ciudad}}</a>
             @endforeach
@@ -121,7 +122,7 @@
 <li class="nav-item">
     <a class="nav-link" href="{{url('alertas')}}">
         <i class="fas fa-fw fa-bell"></i>
-        <span>Alertas</span></a>
+        <span>Notificaciones</span></a>
 </li>
 
 <!-- Heading -->

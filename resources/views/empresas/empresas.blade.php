@@ -36,6 +36,7 @@
                         <th>Nombre</th>
                         <th>Nit</th>
                         <th>Correo</th>
+                        <th>Servicio</th>
                         <th>Telefono</th>
                         <th>Rep. Legal</th>
                         <th></th>
@@ -45,11 +46,13 @@
                     @if (count($empresas)>0)
                         @foreach ($empresas as $empresa)
                             <tr>
-                                <th>{{Str::limit($empresa->name_company, 20)}}</th>
+                                <th>{{Str::limit($empresa->name_company, 40)}}</th>
                                 <th>{{$empresa->nit_company}}</th>
                                 <th>{{$empresa->email_company}}</th>
+                                <th>{{$empresa->servicio}}</th>
+
                                 <th>{{$empresa->telephone_company}}</th>
-                                <th>{{Str::limit($empresa->representante_legal, 20)}}</th>
+                                <th>{{Str::limit($empresa->representante_legal, 30)}}</th>
                                 <th>
                                     <a href="{{url('perfil-empresa/'.$empresa->id_company)}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-arrow-alt-circle-right"></i>
@@ -58,9 +61,9 @@
                                      data-target="#modalQR{{$empresa->id_company}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-qrcode"></i>
                                     </a>
-                                    <a data-toggle="modal" data-target="#modalEnviar{{$empresa->id_company}}" class="btn btn-acontis btn-circle btn-sm">
+                                    <!--<a data-toggle="modal" data-target="#modalEnviar{{$empresa->id_company}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-share-square"></i>
-                                    </a>
+                                    </a>-->
                                     <a data-toggle="modal" data-target="#ModalEditar{{$empresa->id_company}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
