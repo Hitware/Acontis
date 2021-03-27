@@ -12,6 +12,10 @@ class NotificacionComposer
    public function compose(View $view)
     {
         $role=null;
+
+        if(request()->route()->named("generar-pdf-empresa") ?? false) {
+            return;
+        }
         
         if($id_user=auth()->user()!=''){
             if($id_user=='3' or $id_user=='4'){

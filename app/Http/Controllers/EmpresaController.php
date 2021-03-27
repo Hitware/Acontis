@@ -284,72 +284,43 @@ class EmpresaController extends Controller
         $fechaFinal = $request->input("fecha_final");
         
         $codigos = [
-            "deudores" => [
-                130505,
-                130510,
-                130515,
-                132005,
-                132010,
-                132015,
-            ],
-            "cuentas-por-cobrar-a-socios" => [
-                132505,
-                132510,
-            ],
-            "anticipos-y-avances" => [
-                133005,
-                133010,
-                133015,
-                133020,
-                133025,
-                133030,
-                133095,
-                133099,
-            ],
-            "cuentas-por-cobrar-a-trabajadores" => [
-                136505,
-                136510,
-                136515,
-                136520,
-                136525,
-                136530,
-                136595,
-            ],
-            "prestamos-a-particulares" => [
-                137005,
-                137010,
-            ],
-            "deudas-de-dificil-cobro" => [
-                1390
+            "cuentas-por-cobrar" => [
+                13
             ],
             "cuentas-por-pagar-a-proveedores" => [
                 22
             ],
             "cuentas-por-pagar" => [
-                2305,
-                2335
+                23
             ],
             "ingresos-operacionales" => [
                 41
-            ],
-            "cuentas-por-pagar-a-socios" => [
-                2355
             ],
             "ingresos-no-operacionales" => [
                 42
             ]
         ];
 
+        $tipo = \Str::title(str_replace("-", " ", $request->codigo));
+
         $codigoCuenta = $request->input("codigo");
 
-        $movimientos = MovimientosContables::whereIn("Codigo_Cuenta", $codigos[$codigoCuenta])
+        $movimientos = MovimientosContables::whereRaw("left(Codigo_Cuenta,2) = ?", $codigos[$codigoCuenta])
             ->whereBetween("Fecha", [$fechaInicial, $fechaFinal])
+            ->orderByDesc("Fecha")
             ->get();
 
-        $pdf = PDF::loadView('empresas.reportes.estado_cuenta', compact("empresa","fechaInicial", "fechaFinal", "movimientos"));
+        $total = $movimientos->sum(fn($mov) => $mov->Débito + $mov->Crédito);
 
-        //return view('empresas.reportes.estado_cuenta', compact("empresa"));
+        $pdf = PDF::loadView('empresas.reportes.estado_cuenta', compact("empresa","fechaInicial", "fechaFinal", "movimientos", "tipo", "total"));
+
+        //return view('empresas.reportes.estado_cuenta', compact("empresa","fechaInicial", "fechaFinal", "movimientos", "tipo"));
+
         return $pdf->download("{$fechaInicial}-{$fechaFinal}-{$empresa->name_company}.pdf");
+    }
+
+    public function getEstadoCuentaPdf() {
+        return view('empresas.estado_cuenta');
     }
     
 

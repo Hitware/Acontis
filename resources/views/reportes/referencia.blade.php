@@ -16,7 +16,6 @@
             </div>
     </div>
    <div class="container-referencia">
-        @foreach ($empresa as $empresa)
         <div class="content">
             <br>
             <center><b style="font-family: Verdana, Geneva, Tahoma, sans-serif;">CERTIFICACIÓN
@@ -43,7 +42,6 @@
                 <b>Gerente General</b>
             </div>
         </div>
-        @endforeach
 </div>
    
 </body>

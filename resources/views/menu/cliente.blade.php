@@ -25,6 +25,12 @@
     </a>
 </li>
 <li class="nav-item">
+    <a class="nav-link collapsed" href="{{route('get.generar.pdf.empresa', [ 'id' => Auth::user()->companie_id ])}}">
+        <i class="fas fa-fw fa-file-pdf"></i>
+        <span>Estados Contables</span>
+    </a>
+</li>
+<li class="nav-item">
     <a class="nav-link collapsed" href="{{url('reportes')}}">
         <i class="fas fa-fw fa-file-pdf"></i>
         <span>Reportes</span>

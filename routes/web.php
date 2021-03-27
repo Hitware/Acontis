@@ -238,9 +238,12 @@ Route::get('generar-pdf/{id_reporte}',array(
     'uses'=>'EmpresaController@generarpdf'
 ));
 
+Route::get('empresa/{id}/estado-cuenta/pdf',"EmpresaController@getEstadoCuentaPdf")
+    ->middleware("auth")
+    ->name("get.generar.pdf.empresa");
 
-Route::get('empresa/{id}/estado-cuenta/pdf',array(
-    'as'=>'generar-pdf',
+Route::post('empresa/{id}/estado-cuenta/pdf',array(
+    'as'=>'generar-pdf-empresa',
     'middleware' => ["auth"],
     'uses'=>'EmpresaController@generarEstadoCuentaPdf'
 ));
@@ -279,7 +282,7 @@ Route::get('/mis-empresas',array(
     'uses'=>'EmpresaController@misEmpresas'
 ));
 
-Route::get('perfil-empresa/{idempresa}',array(
+Route::get('perfil-empresa/{id}',array(
     'as'=>'perfil-empresa',
     'middleware' => ['auth'],
     'uses'=>'EmpresaController@perfilEmpresa'

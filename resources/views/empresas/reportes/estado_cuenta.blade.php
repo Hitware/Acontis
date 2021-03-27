@@ -40,7 +40,7 @@
             filter: alpha(opacity=40);
             opacity: 0.95;
             border: 2px #000080 solid;
-            border-spacing: 10px;
+            border-spacing: 7px;
             border-left: 0px solid;
             border-right: 0px solid;
             width: 100%;
@@ -93,13 +93,18 @@
 </head>
 
 <body>
+    <div style="width: 100%">
+            <div>
+                <img width="100%" src="{{URL::asset('img/encabezado-reporte.png')}}" alt="">
+            </div>
+    </div>
     <center>
         <h3 class="title">
             {{ $empresa->name_company }}
         </h3>
         <div>
             <span class="subtitle">
-                Estado de Cuenta
+                {{ $tipo }}
             </span>
             <br>
             <span class="date-text">
@@ -115,52 +120,69 @@
     <center>
         <table class="table-main">
             <tr>
-                <td class="text-tr">
+                <td class="text-tr" style="width:15%">
                     Fecha
                 </td>
-                <td class="text-tr">
+                <td class="text-tr" style="width:15%">
                     Documento
                 </td>
-                <td class="text-tr">
+                <td class="text-tr" style="width:15%">
                     Cuenta
                 </td>
-                <td class="text-tr">
+                <td class="text-tr" style="width:40%">
                     Concepto
                 </td>
-                <td class="text-tr">
+                <td class="text-tr" style="width:15%">
                     Saldo
                 </td>
             </tr>
         </table>
     </center>
-    <br>
-    <span class="account-tilte">
-        Cuentas por Cobrar
-    </span>
-    <br>
     <center>
         <table class="table-not-main">
         @foreach($movimientos as $mov)
             <tr>
-                <td class="text-tr-not-main">
-                    {{ $mov->Fecha }}
+                <td class="text-tr-not-main" style="width:15%">
+                    {{ \Carbon\Carbon::parse($mov->Fecha)->format("Y-m-d") }}
                 </td>
-                <td class="text-tr-not-main">
+                <td class="text-tr-not-main" style="width:15%">
                     {{ $mov->Tipo_Documento }} - {{ $mov->Numero_Documento }}
                 </td>
-                <td class="text-tr-not-main">
+                <td class="text-tr-not-main" style="width:15%">
                     {{ $mov->Codigo_Cuenta }}
                 </td>
-                <td class="text-tr-not-main">
+                <td class="text-tr-not-main" style="width:40%">
                     {{ $mov->Concepto_Encabezado }} {{ $mov->Concepto_Detalle }}
                 </td>
-                <td class="text-tr-not-main">
-                    {{ $mov->Débito + $mov->Crédito }}
+                <td class="text-tr-not-main" style="width:15%">
+                    $ {{ number_format($mov->Débito + $mov->Crédito,  2) }}
                 </td>
             </tr>
             @endforeach
         </table>
     </center>
+
+    <center>
+        <table class="table-not-main">
+            <tr>
+                <td class="text-tr-not-main" style="width:75%">
+                    TOTAL
+                </td>
+                <td class="text-tr-not-main" style="width:5%">
+                    
+                </td>
+                <td class="text-tr-not-main" style="width:5%">
+                    
+                </td>
+                <td class="text-tr-not-main" style="width:5%">
+                    
+                </td>
+                <td class="text-tr-not-main" style="width:15%">
+                    $ {{ number_format($total) }}
+                </td>
+            </tr>
+        </table>
+    </center>    
 </body>
 
 </html>
