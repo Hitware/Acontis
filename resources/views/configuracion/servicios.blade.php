@@ -26,6 +26,9 @@
                                     <a data-toggle="modal" data-target="#ModalEliminarServicio{{$servicio->id_servicio}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </a>
+                                    <a data-toggle="modal" data-target="#ModalEditarServicio{{$servicio->id_servicio}}" class="btn btn-acontis btn-circle btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                 </th>
                             </tr>
                             <div id="ModalEliminarServicio{{$servicio->id_servicio}}" class="modal fade">
@@ -43,6 +46,35 @@
                                             <a type="button" href="{{url('eliminar-servicio/'.$servicio->id_servicio)}}" class="btn btn-acontis">Eliminar</a>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="ModalEditarServicio{{$servicio->id_servicio}}">
+                                <div class="modal-dialog">
+                                    <form action="{{url('actualizar-servicio',['id'=>$servicio->id_servicio])}}" method="post">
+                                        @csrf
+                                    
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Actualizar Servicio</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Servicio</label>
+                                                            <input type="text" value="{{$servicio->nombre}}" required class="form-control" id="nombre" name="nombre">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-acontis">Actualizar</button>
+                                            <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+                                        </div>
+                                    </div>
+                                    
+                                </form>
                                 </div>
                             </div>
                         @endforeach
@@ -73,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-acontis">Guardar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
 
                 </form>

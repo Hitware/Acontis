@@ -1,17 +1,7 @@
-<div class="container">
-    <div class="right">
+<div>
+    <div>
       <br>
-      <button data-toggle="modal" data-target="#ModalAgregarDoc" class="btn btn-acontis btn-icon-split">
-        <span class="icon text-white-50">
-            <i class="fas fa-plus"></i>
-        </span>
-        @if (Auth::user()->role_id==5)
-        <span class="text">Solicitar</span>
-        @else
-        <span class="text">Agregar</span>
-        @endif
-
-      </button>
+    
     </div>
 </div>
 <br>
@@ -19,7 +9,7 @@
     <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th>Clase Doc.</th>
+                <th>Nombre</th>
                 <th>Documento</th>
                 <th>Fecha</th>
                 @if(Auth::user()->role_id!=5)
@@ -28,14 +18,12 @@
             </tr>
         </thead>
         <tbody>
-            @if (count($documentos)>0)
-                @foreach ($documentos as $documento)
+            @if (count($scanner)>0)
+                @foreach ($scanner as $documento)
                     <tr>
                         <td>{{$documento->nombre}}</td>
-                        <td> @if (Storage::disk('documentos')->has($documento->documento))
-                            <a target="blank" href="{{url('/documento/'.$documento->documento)}}">Documento</a>    
-                        @endif </td>
-                        <td>{{\FormatTime::LongTimeFilter($documento->created_at)}}</td>
+                        <td> <a href="{{$documento->ruta_imagen}}" target="_blank" ><i class="fas fa-download"></i></a></td>
+                        <td>{{$documento->fecha}}</td>
                         @if(Auth::user()->role_id!=5)
                         <td><a data-toggle="modal" data-target="#ModalEditarDoc{{$documento->id_documento}}" class="btn btn-acontis btn-circle btn-sm">
                             <i class="fas fa-pencil-alt"></i></td>
@@ -59,7 +47,7 @@
                                             </div> 
                                         </div>
                                         <br>
-                                        <button type="submit" class="btn btn-success">Cargar Documento</button>
+                                        <button type="submit" class="btn btn-acontis">Cargar Documento</button>
                                         <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
                                     </form>
                                 </div>
@@ -108,7 +96,7 @@
                         @endif
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-success">Solicitar</button>
+                    <button type="submit" class="btn btn-acontis">Solicitar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
                 </form>
             </div>

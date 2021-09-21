@@ -91,7 +91,7 @@ return [
             'prefix_indexes' => true,
         ],
 
-        'CLIENT_CO' => [
+        'CLIENT_ACONTIS' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST_CO', 'localhost'),
@@ -104,7 +104,7 @@ return [
             'prefix_indexes' => true,
         ],
 
-        'CLIENT_PH' => [
+        'CLIENT_GUIDO' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST_PH', 'localhost'),

@@ -1,4 +1,5 @@
 @extends('layouts.home')
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
 @section('content')
 <h1 class="h3 mb-2 text-gray-800">Lista de Colaboradores</h1>
@@ -15,6 +16,19 @@
             </span>
             <span class="text">Agregar</span>
         </button>
+        <a href="{{url('reporte-colaboradores/activos')}}" class="btn btn-acontis btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-file-excel"></i>
+            </span>
+            <span class="text">Reporte en Excel - Activos</span>
+        </a>
+        <a href="{{url('reporte-colaboradores/retirados')}}" class="btn btn-acontis btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-file-excel"></i>
+            </span>
+            <span class="text">Reporte en Excel - Retirados</span>
+        </a>
+       
     </div>
 </div>
 <br>
@@ -27,12 +41,13 @@
                 <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Cedula</th>
                             <th>Nombres</th>
                             <th>Correo</th>
                             <th>Telefono</th>
                             <th>Cargo</th>
-                            <th>Salario</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -40,12 +55,22 @@
                         @if (count($colaboradores)>0)
                             @foreach ($colaboradores as $colaborador)
                                 <tr>
+                                    <th>
+                                        @if (Storage::disk('fotoperfil')->has($colaborador->url_imagen))
+                                        <center>
+                                            <img width="50%" src="{{url('/fotoperfil/'.$colaborador->url_imagen)}}">
+                                        </center>
+                                        @else
+                                        <center>
+                                            <img width="50%" src="{{URL::asset('img/avatar.png')}}">
+                                        </center>
+                                        @endif
+                                    </th>
                                     <th>{{$colaborador->cedula}}</th>
-                                    <th>{{$colaborador->name}}</th>
+                                    <th>{{$colaborador->name}} {{$colaborador->lastname}}</th>
                                     <th>{{$colaborador->email}}</th>
                                     <th>{{$colaborador->telefono}}</th>
                                     <th>{{$colaborador->cargo}}</th>
-                                    <th>{{$colaborador->salario}}</th>
                                     
                                     <th>
                                         <center>
@@ -55,27 +80,90 @@
                                         <a data-toggle="modal" data-target="#ModalActualizar{{$colaborador->id_contador}}" class="btn btn-acontis btn-circle btn-sm">
                                             <i class="fas fa-info"></i>
                                         </a>
-                                        @if (Auth::user()->id_contador!=$colaborador->id_contador)
+                                        
+                                        </center>
+                                     </th>
+                                     <th>
+                                        @if (Auth::user()->id_contador!=$colaborador->id_contador && $colaborador->estado=='activos')
                                         <a data-toggle="modal" data-target="#ModalEliminar{{$colaborador->id_contador}}" class="btn btn-acontis btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                        @else
+                                        <a data-toggle="modal" data-target="#ModalReingreso{{$colaborador->id_contador}}" class="btn btn-acontis btn-circle btn-sm">
+                                            <i class="fas fa-arrow-alt-circle-up"></i>
+                                        </a>
+                                        <a data-toggle="modal" data-target="#ModalVerRetiro{{$colaborador->id_contador}}" class="btn btn-acontis btn-circle btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
                                         @endif
-                                        </center>
+                                        
+                                        <a href="{{url('hoja-vida/'.$colaborador->id_contador)}}" class="btn btn-acontis btn-circle btn-sm">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </a>
                                      </th>
                                 </tr>
-                                <div id="ModalEliminar{{$colaborador->id_contador}}" class="modal fade">
+                                <div id="ModalReingreso{{$colaborador->id_contador}}" class="modal fade">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                             </div>
                                             <div class="modal-body">
-                                                多Estas seguro de eliminar a {{$colaborador->name}} del sistema?
+                                                ¿Estas seguro de reingresar a <b>{{$colaborador->name}}</b> al sistema?
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">Cancelar</button>
-                                                <a type="button" href="{{url('eliminar-colaborador/'.$colaborador->id_contador)}}" class="btn btn-acontis">Eliminar</a>
+                                                <button  style="margin-right: 10px;margin-left:10px:" type="button" data-dismiss="modal"  class="btn btn-danger">Cancelar</button>
+                                                <a type="button" href="{{url('reingresar-colaborador/'.$colaborador->id_contador)}}" class="btn btn-acontis">Reingresar</a>
                                             </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ModalVerRetiro{{$colaborador->id_contador}}" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h3>Motivo de Retiro</h3>
+                                                <br>
+                                                <b>{{$colaborador->motivo}}</b>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button  style="margin-right: 10px;margin-left:10px:" type="button" data-dismiss="modal"  class="btn btn-danger">Cerrar</button>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ModalEliminar{{$colaborador->id_contador}}" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="{{url('retirar-colaborador',['id'=>$colaborador->id_contador])}}" method="post">
+                                                    
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                        @csrf
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group col">
+                                                                    <label for="">Motivo de retiro de <b>{{$colaborador->name}}</b></label>
+                                                                    <textarea class="form-control" required name="motivo" id="motivo" cols="30" rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button  style="margin-right: 10px;margin-left:10px:" type="button" data-dismiss="modal"  class="btn btn-danger">Cancelar</button>
+                                                            
+                                                <button type="submit" class="btn btn-acontis">Retirar</button>
+                                            
+                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -88,110 +176,275 @@
                                                  
                                             <div class="modal-body">
                                                 <form action="{{url('actualizar-colaborador',['id'=>$colaborador->id_contador])}}" method="post">
-                                           
                                                     @csrf
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group col">
-                                                                <label for="">Cedula</label>
-                                                                <input type="text" class="form-control" value="{{$colaborador->cedula}}" id="cedula" name="cedula">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group col">
-                                                                <label for="">Nombres</label>
-                                                                <input type="text" class="form-control" value="{{$colaborador->name}}" id="nombres" name="nombres">
-                                                            </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Nombres</label>
+                                                            <input type="text" class="form-control" value="{{$colaborador->name}}" id="nombres" name="nombres" required>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group col">
-                                                                <label for="">Telefono</label>
-                                                                <input class="form-control" type="text" value="{{$colaborador->telefono}}" name="telefono" id="telefono">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group col">
-                                                                <label for="">Direccion</label>
-                                                                <input type="text" class="form-control" value="{{$colaborador->direccion}}" id="direccion" name="direccion">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group col">
-                                                                <label for="">Correo</label>
-                                                                <input class="form-control" type="email" value="{{$colaborador->email}}" name="correo" id="correo">
-                                                            </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Apellidos</label>
+                                                            <input type="text" class="form-control"  value="{{$colaborador->lastname}}" id="apellidos" name="apellidos" required>
                                                         </div>
                                                     </div>
-                                                    <hr>
-                                                    <h4>Informacion Laboral</h4>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group col">
-                                                                <label for="">Cargo</label>
-                                                                <select class="form-control" name="cargo" id="cargo">
-                                                                    <option value="" disabled  selected>Cargo</option>
-                                                                    <option value="Gerente">Gerente</option> 
-                                                                    <option value="Coordinador">Coordinador</option>
-                                                                    <option value="Director">Director</option>
-                                                                    <option value="Jefe">Jefe</option>
-                                                                    <option value="Asistente">Asistente</option>
-                                                                    <option value="Auxiliar">Auxiliar</option>
-                                                                    <option value="Revisor Fiscal">Revisor Fiscal</option>
-                                                                    <option value="Auditor Junior">Auditor Junior</option>
-                                                                    <option value="Auditor Senior">Auditor Senior</option>
-                                                                    <option value="Asesor Contable">Asesor Contable</option>
-                                                                    <option value="Auxiliar Contable">Auxiliar Contable</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group col">
-                                                                <label for="">EPS</label>
-                                                                <input type="text" id="eps" name="eps" value="{{$colaborador->eps}}" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group col">
-                                                                <label for="">Salario</label>
-                                                                <input type="text" id="salario" name="salario" value="{{$colaborador->salario}}" class="form-control">
-                                                            </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Cédula</label>
+                                                            <input type="text" class="form-control"  value="{{$colaborador->cedula}}" id="cedula" name="cedula" required>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label for="">Descuentos</label>
-                                                            <input type="text" name="descuentos" value="{{$colaborador->descuentos}}" id="descuentos" class="form-control">
+                                                    
+                                                    <div class="col-md-4">
+                                                        <label for="Cumpleaños">Fecha de Nacimiento</label>
+                                                        <input type="date" class="form-control" value="{{$colaborador->cumpleanos}}" name="cumpleanos" id="cumpleanos" required>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Sexo</label>
+                                                            <select class="form-control" name="sexo" id="sexo" required>
+                                                                <option value="{{$colaborador->sexo}}" selected>{{$colaborador->sexo}}</option>
+                                                                <option value="Masculino">Masculino</option>
+                                                                <option value="Femenino">Femenino</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Direccion</label>
+                                                            <input type="text" class="form-control" value="{{$colaborador->direccion}}" id="direccion" name="direccion" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">Vivienda</label>
+                                                            <select name="vivienda" id="vivienda" class="form-control" required>
+                                                                <option value="{{$colaborador->vivienda}}" selected>{{$colaborador->vivienda}}</option>
+                                                                <option value="Propia">Propia</option>
+                                                                <option value="Arrendada">Arrendada</option>
+                                                                <option value="Familiar">Familiar</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">Estado Civil</label>
+                                                            <select name="estado_civil" id="estado_civil" class="form-control" required>
+                                                                <option value="{{$colaborador->estado_civil}}" selected>{{$colaborador->estado_civil}}</option>
+                                                                <option value="Soltero">Soltero</option>
+                                                                <option value="Casado">Casado</option>
+                                                                <option value="Union libre">Unión libre</option>
+
+                                                                <option value="Divorciado">Divorciado</option>
+                                                                <option value="Viudo">Viudo</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">Hijos</label>
+                                                            <select name="hijos" id="hijos" class="form-control" required>
+                                                                <option selected value="{{$colaborador->hijos}}">{{$colaborador->hijos}}</option>
+                                                                <option value="0">0</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">Celular</label>
+                                                            <input class="form-control" type="text"  value="{{$colaborador->telefono}}" name="telefono" id="telefono" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Correo Personal</label>
+                                                            <input class="form-control" type="email" value="{{$colaborador->correo_personal}}" name="correo-personal" id="correo-personal" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Correo Corporativo</label>
+                                                            <input class="form-control" type="email" value="{{$colaborador->email}}" name="correo" id="correo">
+                                                        </div>
+                                                    </div>
+                                                                    
+                                                    <div class="col-md-4">
+                                                        <label for="RUT">RUT</label>
+                                                        <input type="file" class="form-control" name="rut" id="rut">
+                                                    </div>
+                                                    
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Cargo</label>
+                                                            <select class="form-control" name="cargo" id="cargo">
+                                                                <option value="{{$colaborador->cargo}}" selected>{{$colaborador->cargo}}</option>
+                                                                @foreach ($cargos as $cargo)
+                                                                    <option value="{{$cargo->nombre}}">{{$cargo->nombre}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Sede</label>
+                                                            <select name="ubicacion" id="ubicacion" class="form-control" required>
+                                                                <option value="{{$colaborador->ubicacion}}" selected>{{$colaborador->ubicacion}}</option>
+
+                                                                @include('empresas.sedes')
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group col">
+                                                            <label for="">Tipo de Contrato</label>
+                                                            <select class="form-control" name="tipo-contrato" id="tipo-contrato">
+                                                                
+                                                                <option value="Laboral">Laboral</option>
+                                                                <option value=" Aprendizaje"> Aprendizaje</option>
+                                                                <option value="Prestación de Servicio">Prestación de Servicio</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Fecha de Ingreso</label>
+                                                            <input type="date" value="{{$colaborador->fecha_ingreso}}" id="fecha_ingreso" name="fecha_ingreso" class="form-control">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Salario</label>
+                                                            <input type="text" id="salario"  value="{{$colaborador->salario}}" name="salario" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">EPS</label>
+                                                            <input type="text" id="eps" value="{{$colaborador->eps}}" name="eps" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">Pensión</label>
+                                                            <input type="text" id="pension" value="{{$colaborador->pension}}" name="pension" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">Cesantias</label>
+                                                            <input type="text" name="cesantias" value="{{$colaborador->cesantias}}" id="cesantias" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">RH</label>
+                                                            <input type="text" id="rh" name="rh" value="{{$colaborador->rh}}"  class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
                                                             <label for="">Alergias</label>
-                                                            <textarea name="alergias" id="alergias" cols="5" rows="5" class="form-control">{{$colaborador->alergias}}</textarea>
+                                                            <textarea name="alergias" id="alergias" cols="5" rows="2" class="form-control">{{$colaborador->alergias}}</textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <label for="">Antecedentes</label>
-                                                            <textarea class="form-control" name="antecedentes" id="antecedentes" cols="5" rows="5">{{$colaborador->antecedentes}}</textarea>
+                                                    
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Antecedentes Médicos</label>
+                                                            <textarea class="form-control" name="antecedentes" id="antecedentes" cols="5" rows="2">{{$colaborador->antecedentes}}</textarea>
                                                         </div>
                                                     </div>
-                                                    <hr>
-                                                    <h4>Persona de Contacto</h4>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label for="">Persona de Contacto</label>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">ARL</label>
+                                                            <input type="text" id="arl" name="arl" value="{{$colaborador->arl}}"  class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Caja de Compensacíon</label>
+                                                            <input type="text" value="{{$colaborador->caja_compensacion}}" id="caja_compensacion" name="caja_compensacion" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Convenios</label>
+                                                            <input type="text" value="{{$colaborador->convenidos}}" id="convenidos" name="convenidos" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Medicina Pregada</label>
+                                                            <input type="text" value="{{$colaborador->medicina_prepagada}}" id="medicina_prepagada" name="medicina_prepagada" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">Talla Camisa</label>
+                                                            <input type="text" id="talla"  value="{{$colaborador->talla}}" name="talla" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">Talla Pantalón</label>
+                                                            <input type="text" value="{{$colaborador->talla_pantalon}}" name="talla_pantalon" id="talla_pantalon" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col">
+                                                            <label for="">Talla Zapatos</label>
+                                                            <input type="text" value="{{$colaborador->talla_zapatos}}" name="talla_zapatos" id="talla_zapatos" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Persona de Contacto N° 1</label>
                                                             <input type="text" id="persona-contacto" value="{{$colaborador->nombre_contacto}}" name="persona-contacto" class="form-control">
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label for="">Telefono de Contacto</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Telefono de Contacto N° 1</label>
                                                             <input type="text" class="form-control" value="{{$colaborador->telefono_contacto}}" name="telefono-contacto" id="telefono-contacto" >
                                                         </div>
                                                     </div>
-                                                    <br>
-                                                    <button type="submit" class="btn btn-acontis">Actualizar</button>
-                                                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Persona de Contacto N° 2</label>
+                                                            <input type="text" id="persona-contacto-dos" value="{{$colaborador->nombre_contacto_dos}}"  name="persona-contacto-dos" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col">
+                                                            <label for="">Telefono de Contacto N° 2</label>
+                                                            <input type="text" class="form-control" value="{{$colaborador->telefono_contacto_dos}}" name="telefono-contacto-dos" id="telefono-contacto-dos" >
+                                                        </div>
+                                                    </div>
+                                                </div>         
+                                                            
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button  style="margin-right: 10px;margin-left:10px:" type="button" data-dismiss="modal"  class="btn btn-danger">Cancelar</button>
+                                                        <button type="submit" class="btn btn-acontis">Actualizar</button>
+                                                    </div>
                                                 </form>
-                                                </div>
+                                            </div>
+                                           
                                         
                                           
                                         
@@ -207,122 +460,300 @@
                         @endif
                     </tbody>
                 </table>
-                <div id="ModalAgregar" class="modal fade ">
-                    <div class="modal-dialog modal-lg">
+                <div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Agregar Empleado</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Agregar Colaborador</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                             </div>
-                                 
                             <div class="modal-body">
                                 <form action="{{url('/agregar-colaborador')}}" method="post">
-                           
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group col">
-                                                <label for="">Cedula</label>
-                                                <input type="text" class="form-control" id="cedula" name="cedula">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group col">
-                                                <label for="">Nombres</label>
-                                                <input type="text" class="form-control" id="nombres" name="nombres">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group col">
-                                                <label for="">Telefono</label>
-                                                <input class="form-control" type="text" name="telefono" id="telefono">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col">
-                                                <label for="">Direccion</label>
-                                                <input type="text" class="form-control" id="direccion" name="direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col">
-                                                <label for="">Correo</label>
-                                                <input class="form-control" type="email" name="correo" id="correo">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <h4>Informacion Laboral</h4>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group col">
-                                                <label for="">Cargo</label>
-                                                <select class="form-control" name="cargo" id="cargo">
-                                                    <option value="" disabled  selected>Cargo</option>
-                                                    <option value="Gerente">Gerente</option> 
-                                                    <option value="Coordinador">Coordinador</option>
-                                                    <option value="Director">Director</option>
-                                                    <option value="Jefe">Jefe</option>
-                                                    <option value="Asistente">Asistente</option>
-                                                    <option value="Auxiliar">Auxiliar</option>
-                                                    <option value="Revisor Fiscal">Revisor Fiscal</option>
-                                                    <option value="Auditor Junior">Auditor Junior</option>
-                                                    <option value="Auditor Senior">Auditor Senior</option>
-                                                    <option value="Asesor Contable">Asesor Contable</option>
-                                                    <option value="Auxiliar Contable">Auxiliar Contable</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col">
-                                                <label for="">EPS</label>
-                                                <input type="text" id="eps" name="eps" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group col">
-                                                <label for="">Salario</label>
-                                                <input type="text" id="salario" name="salario" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label for="">Descuentos</label>
-                                            <input type="text" name="descuentos" id="descuentos" class="form-control">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="">Alergias</label>
-                                            <textarea name="alergias" id="alergias" cols="5" rows="5" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label for="">Antecedentes</label>
-                                            <textarea class="form-control" name="antecedentes" id="antecedentes" cols="5" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <h4>Persona de Contacto</h4>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="">Persona de Contacto</label>
-                                            <input type="text" id="persona-contacto" name="persona-contacto" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="">Telefono de Contacto</label>
-                                            <input type="text" class="form-control" name="telefono-contacto" id="telefono-contacto" >
-                                        </div>
-                                    </div>
+                                @csrf
+                                
+                                <div id="smartwizard">
+                                    <ul>
+                                        <li><a href="#step-1">Datos personales<br /><small></small></a></li>
+                                        <li><a href="#step-2">Información laboral<br /><small></small></a></li>
+                                        <li><a href="#step-3">Salud<br /><small></small></a></li>
+                                        <li><a href="#step-4">Datos de contacto<br /><small></small></a></li>
+                                    </ul>
                                     <br>
-                                    <button type="submit" class="btn btn-success">Guardar</button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
-                                </form>
+                                    <div>
+                                        <div id="step-1">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Nombres</label>
+                                                        <input type="text" class="form-control" id="nombres" name="nombres" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Apellidos</label>
+                                                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Cédula</label>
+                                                        <input type="text" class="form-control" id="cedula" name="cedula" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Celular</label>
+                                                        <input class="form-control" type="text" name="telefono" id="telefono" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Sexo</label>
+                                                        <select class="form-control" name="sexo" id="sexo" required>
+                                                            <option value="">--SELECCIONE--</option>
+                                                            <option value="Masculino">Masculino</option>
+                                                            <option value="Femenino">Femenino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Estado Civil</label>
+                                                        <select name="estado_civil" id="estado_civil" class="form-control" required>
+                                                            <option value="" selected disabled>--SELECCIONE--</option>
+                                                            <option value="Soltero">Soltero</option>
+                                                            <option value="Casado">Casado</option>
+                                                            <option value="Union libre">Unión libre</option>
+                                                            <option value="Divorciado">Divorciado</option>
+                                                            <option value="Viudo">Viudo</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Vivienda</label>
+                                                        <select name="vivienda" id="vivienda" class="form-control" required>
+                                                            <option value="" selected disabled>--SELECCIONE--</option>
+                                                            <option value="Propia">Propia</option>
+                                                            <option value="Arrendada">Arrendada</option>
+                                                            <option value="Familiar">Familiar</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="Cumpleaños">Fecha de Nacimiento</label>
+                                                    <input type="date" class="form-control" name="cumpleanos" id="cumpleanos" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Correo Personal</label>
+                                                        <input class="form-control" type="email" name="correo-personal" id="correo-personal" required>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Direccion</label>
+                                                        <input type="text" class="form-control" id="direccion" name="direccion" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Hijos</label>
+                                                        <select name="hijos" id="hijos" class="form-control" required>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                        <div id="step-2">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="RUT">RUT</label>
+                                                    <input type="file" class="form-control" name="rut" id="rut">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Correo Corporativo</label>
+                                                        <input class="form-control" type="email" name="correo" id="correo">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Cargo</label>
+                                                        <select class="form-control" name="cargo" id="cargo">
+                                                            <option value="" disabled  selected>Cargo</option>
+                                                            @foreach ($cargos as $cargo)
+                                                                <option value="{{$cargo->nombre}}">{{$cargo->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Ubicación</label>
+                                                        <select name="ubicacion" id="ubicacion" class="form-control" required>
+                                                            <option value="">--SELECCIONE--</option>
+                                                            @include('empresas.sedes')
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Tipo de Contrato</label>
+                                                        <select class="form-control" name="tipo-contrato" id="tipo-contrato">
+                                                            <option value="">--SELECCIONE--</option>
+                                                            <option value="Laboral">Laboral</option>
+                                                            <option value="Aprendizaje"> Aprendizaje</option>
+                                                            <option value="Prestación de Servicio">Prestación de Servicio</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group col">
+                                                        <label for="">Salario</label>
+                                                        <input type="text" id="salario" name="salario" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Fecha de Ingreso</label>
+                                                        <input type="date" id="fecha_ingreso" name="fecha_ingreso" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Talla</label>
+                                                        <input type="text" id="talla" name="talla" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Talla Pantalón</label>
+                                                        <input type="text"  name="talla_pantalon" id="talla_pantalon" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Talla Zapatos</label>
+                                                        <input type="text"  name="talla_zapatos" id="talla_zapatos" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="step-3" class="">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Alergias</label>
+                                                        <textarea name="alergias" id="alergias" cols="5" rows="2" class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Antecedentes</label>
+                                                        <textarea class="form-control" name="antecedentes" id="antecedentes" cols="5" rows="2"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">ARL</label>
+                                                        <input type="text" id="arl" name="arl" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Caja de Compensacíon</label>
+                                                        <input type="text" id="caja_compensacion" name="caja_compensacion" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Convenios</label>
+                                                        <input type="text" id="convenidos" name="convenidos" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Medicina Pregada</label>
+                                                        <input type="text" id="medicina_prepagada" name="medicina_prepagada" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">RH</label>
+                                                        <input type="text" id="rh" name="rh" class="form-control">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">EPS</label>
+                                                        <input type="text" id="eps" name="eps" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Pensión</label>
+                                                        <input type="text" id="pension" name="pension" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group col">
+                                                        <label for="">Cesantias</label>
+                                                        <input type="text" name="cesantias" id="cesantias" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="step-4" class="">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Persona de Contacto</label>
+                                                        <input type="text" id="persona-contacto" name="persona-contacto" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Telefono de Contacto</label>
+                                                        <input type="text" class="form-control" name="telefono-contacto" id="telefono-contacto" >
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Persona de Contacto</label>
+                                                        <input type="text" id="persona-contacto-dos" name="persona-contacto-dos" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Telefono de Contacto</label>
+                                                        <input type="text" class="form-control" name="telefono-contacto-dos" id="telefono-contacto-dos">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal -->
             </div>
         </div>
     </div>

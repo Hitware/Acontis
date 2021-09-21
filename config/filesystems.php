@@ -70,7 +70,62 @@ return [
             'visibility' => 'public',
         ],
 
+        'anexos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/anexos'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 
+        'documentosperiodo' => [
+            'driver' => 'local',
+            'root' => storage_path('app/documentosperiodo'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'rut' => [
+            'driver' => 'local',
+            'root' => storage_path('app/rut'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'camaracomercio' => [
+            'driver' => 'local',
+            'root' => storage_path('app/camaracomercio'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'cedula' => [
+            'driver' => 'local',
+            'root' => storage_path('app/cedula'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'referencia' => [
+            'driver' => 'local',
+            'root' => storage_path('app/referencia'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'seguridad' => [
+            'driver' => 'local',
+            'root' => storage_path('app/seguridad'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'sig' => [
+            'driver' => 'local',
+            'root' => storage_path('app/sig'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'evaluacion' => [
+            'driver' => 'local',
+            'root' => storage_path('app/evaluacion'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -80,6 +135,7 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
+        
 
     ],
 

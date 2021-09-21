@@ -5,12 +5,15 @@
     {{session('message')}}
 </div>  
 @endif
+<br>
+<h3>CERTIFICACIONES</h3>
+<br>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
-                    <a href="{{url('referencia-comercial')}}">
+                    <a href="{{url('referencia-comercial/'.Auth::user()->companie_id)}}">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xm  font-weight-bold text-primary text-uppercase mb-1">
@@ -25,6 +28,14 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<br>
+<h3>DESCARGABLES</h3>
+<br>
+       
+<div class="container-fluid">
+    <div class="row">
         @foreach ($documentos as $documento)
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">

@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <img height="10%" width="100%" src="https://crm.acontis.co/public/img/cabezote.jpg" alt="">
+        <img height="10%" width="100%" src="https://crm.acontis.co/img/cabezote.jpg" alt="">
         <div class="row">
             <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;" >Bienvenido <b>{{$nombre_empresa}}</b>, estamos muy felices de poder compartir con ustedes este nuevo proyecto .</p>
             <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: 15px;">A continuación compartimos el siguiente <b> código QR </b>, un registro único de identificación en nuestra base de 

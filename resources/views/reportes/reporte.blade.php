@@ -56,7 +56,7 @@
                         </div>
                         <div class="col-md-10">
                             <div class="form-group">
-                        <button type="submit" class="btn btn-success">Enviar</button>
+                        <button type="submit" class="btn btn-acontis">Enviar</button>
         
                             </div>
                         </div>

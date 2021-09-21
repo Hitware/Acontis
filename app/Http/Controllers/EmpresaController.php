@@ -17,6 +17,8 @@ use App\Models\Alerta;
 use App\Models\Documento;
 use App\Models\Servicio;
 use App\Models\TipoCliente;
+use App\Models\Periodo;
+use App\Models\RetiroEmpresa;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\QRMailable;
@@ -27,20 +29,54 @@ use PDF;
 use App\Models\CuentaPorCobrar;
 use App\Models\CuentaPorCobrarDetallada;
 use App\Models\CuentaPorPagar;
+use App\Models\Clasificacion;
 use App\Models\MovimientosContables;
+use App\Models\DocumentoScanner;
 
 class EmpresaController extends Controller
 {
     protected $table = 'companies';
 
     public function empresas($sede){
-        $empresas=Empresa::where('sede','=',$sede)->get();
+        if($sede=="general"){
+            $empresas=Empresa::where('sede','!=','retiradas')
+            ->leftJoin('contadores','companies.id_asesor','=','contadores.id_contador')
+            ->select('companies.*','contadores.name')
+            ->get();
+        }
+        else if($sede=="acontis"){
+            $empresas=Empresa::where('propietario','=','ACONTIS')
+            ->where('sede','!=','retiradas')
+            ->leftJoin('contadores','companies.id_asesor','=','contadores.id_contador')
+            ->select('companies.*','contadores.name')
+            ->get();
+        }
+        else if($sede=="guido"){
+            $empresas=Empresa::where('propietario','=','GUIDO')
+            ->where('sede','!=','retiradas')
+            ->leftJoin('contadores','companies.id_asesor','=','contadores.id_contador')
+            ->select('companies.*','contadores.name')
+            ->get();
+        }
+        else if($sede=="retiradas"){
+            $empresas=Empresa::join('empresa_retiro','companies.id_company','=','empresa_retiro.id_empresa')
+            ->where('sede','=','retiradas')
+            ->get();
+        }
+        else{
+            $empresas=Empresa::where('sede','=',$sede)
+            ->leftJoin('contadores','companies.id_asesor','=','contadores.id_contador')
+            ->select('companies.*','contadores.name')
+            ->get();
+        }
         $servicios=Servicio::get();
         $tipoclientes=TipoCliente::get();
+        $clasificacion=Clasificacion::get();
         return view('empresas.empresas',array(
             'empresas'=>$empresas,
             'servicios'=>$servicios,
-            'tipoclientes'=>$tipoclientes
+            'tipoclientes'=>$tipoclientes,
+            'clasificacion'=>$clasificacion
         ));
     }
 
@@ -56,11 +92,22 @@ class EmpresaController extends Controller
         $empresab = Empresa::where('email_company','=',$correo_empresa)->get();
 
         if(count($empresab)>0){
-            return redirect()->route('empresas')->with(array(
+            return back()->with(array(
                 'message'=>'Ya hay una empresa con este correo registrado'
             ));
         }
         else{
+            $user_empresa= new User();
+            $user_empresa->name=$request->input('nombre-empresa');
+            $user_empresa->email=$request->input('correo');
+            $user_empresa->password=bcrypt($request->input('nit'));
+            $user_empresa->role_id=5;
+            $user_empresa->save();
+
+            $id_user =  User::latest('id_contador')->first(); 
+            
+            $hoy = new \DateTime();
+
             $empresa = new Empresa();
             $empresa->name_company=$request->input('nombre-empresa');
             $empresa->representante_legal=$request->input('representante-legal');
@@ -69,28 +116,24 @@ class EmpresaController extends Controller
             $empresa->telephone_company=$request->input('telefono');
             $empresa->email_company=$request->input('correo');
             $empresa->tipo_cliente=$request->input('tipo-cliente');
+            $empresa->clasificacion=$request->input('clasificacion');
             $empresa->servicio=$request->input('servicio');
             $empresa->sede=$request->input('sede');
+            $empresa->propietario=$request->input('basedatos');
+            $empresa->fecha_contrato=$hoy->format('Y-m-d');
+            $empresa->user_id=$id_user->id_contador;
             $empresa->save(); 
-            $id_empresa =  Empresa::latest('id_company')->first(); 
-            
-            $user_empresa= new User();
-            $user_empresa->name=$request->input('nombre-empresa');
-            $user_empresa->email=$request->input('correo');
-            $user_empresa->password=bcrypt($request->input('nit'));
-            $user_empresa->role_id=5;
-            $user_empresa->companie_id=$id_empresa->id_company;
-            $user_empresa->save();
+
+            $id_companie =  Empresa::latest('id_company')->first(); 
+            $iduser=$id_user->id_contador;
+            $usercompanie = User::find($iduser);
+            $usercompanie->companie_id=$id_companie->id_company;
+            $usercompanie->update();
             
             return back()->with(array(
-                'message'=>'Empresa creada exitosamente'
+                'message'=>'Empresa registrada correctamente'
             ));
-        }
-       
-        //Crear usuario de empresa
-       
-
-        
+        }   
     }
 
     public function actualizar($id,Request $request){
@@ -102,21 +145,41 @@ class EmpresaController extends Controller
         $empresa->telephone_company=$request->input('telefono');
         $empresa->email_company=$request->input('correo');
         $empresa->tipo_cliente=$request->input('tipo-cliente');
+        $empresa->clasificacion=$request->input('clasificacion');
         $empresa->sede=$request->input('sede');
         $empresa->servicio=$request->input('servicio');
+        $empresa->fecha_contrato=$request->input('fecha_contrato');
         $empresa->name_bd_adm=$request->input('dbword');
+        $empresa->propietario=$request->input('basedatos');
+        $user_id= $empresa->user_id;
         $empresa->update();
+        
+        $empresa_user=User::find($user_id);
+        $empresa_user->email=$request->input('correo');
+        $empresa_user->update();
+
         return back()->with(array(
             'message'=>'Empresa actualizada'
         ));
+
+
         
     }
 
-    public function eliminar($idempresa){
+    public function eliminar($idempresa,Request $request){
         $empresa=Empresa::find($idempresa);
-        $empresa->delete();
-        return redirect()->route('empresas')->with(array(
-            'message'=>'Empresa eliminada exitosamente'
+        $empresa->sede='retiradas';
+        $empresa->id_asesor=null;
+        $empresa->id_asesordos=null;
+        $empresa->update();
+
+        $retiro = new RetiroEmpresa();
+        $retiro->id_empresa=$idempresa;
+        $retiro->motivo=$request->input('retiro');
+        $retiro->save();
+
+        return back()->with(array(
+            'message'=>'Empresa retirada exitosamente'
         ));
     }
 
@@ -264,11 +327,8 @@ class EmpresaController extends Controller
         ->select('escaneos.*','reportes.*','contadores.*')
         ->get();
         $pdf = PDF::loadView('reportes.visitas',compact('reportes'));
-        $path = public_path('/');
         $fileName =  time().'.'. 'pdf' ;
-        $pdf->save($path . '/' . $fileName);
-        $pdf = public_path($fileName);
-        return response()->download($pdf);
+        return $pdf->download($fileName);
     }
 
     public function generarEstadoCuentaPdf(Request $request, $id) {
@@ -298,6 +358,12 @@ class EmpresaController extends Controller
             ],
             "ingresos-no-operacionales" => [
                 42
+            ],
+            "gastos-operacionales" => [
+                51
+            ],
+            "gastos-no-operacionales" => [
+                53
             ]
         ];
 
@@ -334,16 +400,20 @@ class EmpresaController extends Controller
 
     public function perfilEmpresa($idempresa){
         $empresa=Empresa::where('id_company','=',$idempresa)->first();
-        $usuarios=User::all();
+        $usuarios=User::where('companie_id','=',$idempresa)->get();
         $documentos=Documento::where('id_empresa','=',$idempresa)->get();
         $alertas=Alerta::where('id_empresa','=',$idempresa)->get();
-   
+        $scanner=DocumentoScanner::where('id_empresa','=',$idempresa)->get();
+        $periodos=Periodo::where('id_companie','=',$idempresa)->get();
+
         return view('empresas.perfil')->with(
             compact(
                 'empresa',
                 'usuarios',
                 'documentos',
-                'alertas'
+                'alertas',
+                'periodos',
+                'scanner'
             )
         );
     }

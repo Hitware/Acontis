@@ -16,4 +16,10 @@ class EmpresasExport implements FromCollection
         return Empresa::select("name_company","nit_company","telephone_company","email_company","tipo_cliente","servicio","representante_legal")->get();
     
     }
+
+    public function view(): View{
+        return view('reportes.indicadores.empresas',
+        ['empresas'=>Empresa::get()]
+        );
+    }
 }

@@ -488,8 +488,8 @@
    .container-sm,
    .container-xl {
     width:100%;
-    padding-right:.75rem;
-    padding-left:.75rem;
+    padding-right:.25rem;
+    padding-left:.25rem;
     margin-right:auto;
     margin-left:auto
    }
@@ -8918,8 +8918,8 @@
    .container-md,
    .container-sm,
    .container-xl {
-    padding-left:1.5rem;
-    padding-right:1.5rem
+    /*padding-left:1.5rem;
+    padding-right:1.5rem;*/
    }
    .scroll-to-top {
     position:fixed;

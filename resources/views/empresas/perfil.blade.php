@@ -16,14 +16,16 @@
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#inicio" role="tab" aria-controls="home" aria-selected="true">Usuarios</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#documentos" role="tab" aria-controls="profile" aria-selected="false">Documentos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#estados" role="tab" aria-controls="contact" aria-selected="false">Estados Contables</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#documentos" role="tab" aria-controls="profile" aria-selected="false">Scanner</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#alertas" role="tab" aria-controls="contact" aria-selected="false">Alertas</a>
               </li>
+              @if (Auth::user()->role_id!=5)
+              <li class="nav-item">
+                <a class="nav-link" id="infocontable-tab" data-toggle="tab" href="#infocontable" role="tab" aria-controls="infocontable" aria-selected="false">Información Contable</a>
+              </li>
+              @endif
           </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="inicio" role="tabpanel" aria-labelledby="home-tab">
@@ -32,11 +34,11 @@
             <div class="tab-pane fade" id="documentos" role="tabpanel" aria-labelledby="profile-tab">
                 @include('empresas.documentos')
             </div>
-            <div class="tab-pane fade" id="estados" role="tabpanel" aria-labelledby="contact-tab">
-                @include('empresas.estados')
-            </div>
             <div class="tab-pane fade" id="alertas" role="tabpanel" aria-labelledby="contact-tab">
                 @include('empresas.alertas')
+            </div>
+            <div class="tab-pane fade" id="infocontable" role="tabpanel" aria-labelledby="infocontable-tab">
+                @include('empresas.estados')
             </div>
           </div> 
     </div>

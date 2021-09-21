@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Notificaciones;
-
+use App\Models\Empresa;
+use App\Models\Servicio;
+use App\Models\Clasificacion;
+use App\Models\Evento;
+use App\Models\Sede;
 
 class HomeController extends Controller
 {
@@ -29,7 +33,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-            return view('layouts.home');
+            $empresas=Empresa::get();
+            $servicios=Servicio::get();
+            $eventos=Evento::get();
+            $sedes=Sede::get();
+            return view('inicio.index',array(
+                'empresas'=>$empresas,
+                'servicios'=>$servicios,
+                'eventos'=>$eventos,
+                'sedes'=>$sedes
+            ));
     }
 
     public function colaboradores(){

@@ -1,7 +1,7 @@
 
 <br>
 <div id="left">
-    <button data-toggle="modal" data-target="#ModalAddD" class="btn btn-acontis btn-icon-split">
+    <button data-toggle="modal" data-target="#ModalAddSedes" class="btn btn-acontis btn-icon-split">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
         </span>
@@ -25,12 +25,15 @@
                             <tr>
                                 <th>{{$sede->nombre_ciudad}}</th>
                                 <th>
-                                    <a data-toggle="modal" data-target="#ModalEliminar{{$sede->id_sede}}" class="btn btn-acontis btn-circle btn-sm">
+                                    <a data-toggle="modal" data-target="#ModalEliminarSede{{$sede->id_sede}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a data-toggle="modal" data-target="#ModalEditarSede{{$sede->id_sede}}" class="btn btn-acontis btn-circle btn-sm">
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                 </th>
                             </tr>
-                            <div id="ModalEliminar{{$sede->id_sede}}" class="modal fade">
+                            <div id="ModalEliminarSede{{$sede->id_sede}}" class="modal fade">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -47,6 +50,33 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="ModalEditarSede{{$sede->id_sede}}" class="modal fade">
+                                <div class="modal-dialog">
+                                    <form action="{{url('actualizar-sede',['id'=>$sede->id_sede])}}" method="post">
+                                        @csrf
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Nombre de Sede</label>
+                                                        <input type="text" class="form-control" value="{{$sede->nombre_ciudad}}" id="nombre" name="nombre">
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        <br>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">Cancelar</button>
+                                            <button type="submit" class="btn btn-acontis">Actualizar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
                         @endforeach
                     @else
                     <div class="alert alert-warning" role="alert">
@@ -58,7 +88,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ModalAddD">
+<div class="modal fade" id="ModalAddSedes">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -75,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-acontis">Guardar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
 
                 </form>

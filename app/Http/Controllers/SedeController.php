@@ -20,6 +20,13 @@ class SedeController extends Controller
         return back()->with('message','Sede creada');
     }
 
+    function actualizar($id,Request $request){
+        $sede = Sede::find($id);
+        $sede->nombre_ciudad=$request->input('nombre');
+        $sede->update();
+        return back()->with('message','Sede actualizada');
+    }
+
     function eliminar($id,Request $request){
         $sede = Sede::find($id);
         $sede->delete();

@@ -1,4 +1,4 @@
-<div class="container">
+<div >
     <div class="right">
       <br>
       @if (Auth::user()->role_id!=5)
@@ -77,7 +77,7 @@
                     </div>
                     <br>
                     
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-acontis">Guardar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
                 </form>
             </div>

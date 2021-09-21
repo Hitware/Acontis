@@ -12,6 +12,8 @@ use App\Models\Configuracion;
 use App\Models\Documento;
 use App\Models\Servicio;
 use App\Models\TipoCliente;
+use App\Models\Clasificacion;
+use App\Models\Cargo;
 class ConfiguracionController extends Controller
 {
     protected $table = 'configuracion';
@@ -22,11 +24,15 @@ class ConfiguracionController extends Controller
         ->get();
         $servicios=Servicio::get();
         $tipoclientes=TipoCliente::get();
+        $clasificacion=Clasificacion::get();
+        $cargo=Cargo::get();
         return view('configuracion.index',array(
             'tipodocumentos'=>$tipodocumentos,
             'documentos'=>$documentos,
             'servicios'=>$servicios,
-            'tipoclientes'=>$tipoclientes
+            'tipoclientes'=>$tipoclientes,
+            'clasificacion'=>$clasificacion,
+            'cargo'=>$cargo,
         ));
     }
 

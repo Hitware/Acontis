@@ -20,6 +20,13 @@ class ServicioController extends Controller
         return back()->with('message','Servicio creado');
     }
 
+    public function actualizar($id,Request $request){
+        $servicio = Servicio::find($id);
+        $servicio->nombre= $request->input('nombre');
+        $servicio->update();
+        return back()->with('message','Servicio actualizado');
+    }
+
     public function eliminar($id,Request $request){
         $servicio=Servicio::find($id);
         $servicio->delete();

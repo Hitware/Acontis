@@ -17,9 +17,13 @@
         <i class="fas fa-fw fa-building"></i>
         <span>Mis Empresas</span>
     </a>
-    <a class="nav-link collapsed" href="{{url('planeacion')}}">
+    <a class="nav-link collapsed" href="{{url('planeacionasesor')}}">
         <i class="fas fa-fw fa-calendar-check"></i>
         <span>Planeación</span>
+    </a>
+    <a class="nav-link collapsed" href="{{url('certificaciones')}}">
+        <i class="fas fa-fw fa-file-pdf"></i>
+        <span>Certificaciones</span>
     </a>
    
 </li>

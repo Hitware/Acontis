@@ -128,14 +128,14 @@
                         visita+='<td>'+arreglo[x].hora+'</td>';
                         visita+='<td>'+arreglo[x].name_company+'</td>';
                         visita+='<td><a onclick="generarPdf('+arreglo[x].id_reporte+')" class="btn btn-acontis btn-circle btn-sm"><i class="fas fa-file-pdf"></i></a>';
-                        visita+='<button type="button"  class="btn btn-acontis btn-circle btn-sm"><i class="fas fa-share-square"></i></button></td></tr>';               
+                        visita+='</td></tr>';               
                     }
                     else{
                         actividades+='<tr><td>'+arreglo[x].fecha+'</td>';
                         actividades+='<td>'+arreglo[x].hora+'</td>';
                         actividades+='<td>'+arreglo[x].name_company+'</td>';
                         actividades+='<td><a onclick="generarPdf('+arreglo[x].id_reporte+')" class="btn btn-acontis btn-circle btn-sm"><i class="fas fa-file-pdf"></i></a>';
-                        actividades+='<button type="button"  class="btn btn-acontis btn-circle btn-sm"><i class="fas fa-share-square"></i></button></td></tr>';               
+                        actividades+='</td></tr>';               
                     }
                 }
                 visita+='</tbody>'

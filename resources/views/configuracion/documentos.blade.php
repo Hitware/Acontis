@@ -1,5 +1,5 @@
 <div id="left">
-    <button data-toggle="modal" data-target="#ModalAddD" class="btn btn-acontis btn-icon-split">
+    <button data-toggle="modal" data-target="#ModalAddDoc" class="btn btn-acontis btn-icon-split">
         <span class="icon text-white-50">
             <i class="fas fa-plus"></i>
         </span>
@@ -10,7 +10,7 @@
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped" id="dataTable2">
+            <table class="table table-striped" id="dataTable">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -35,10 +35,10 @@
                     
                 </tbody>
             </table>
-        </div>
+        </div>  
     </div>
 </div>
-<div class="modal fade" id="ModalAddD">
+<div class="modal fade" id="ModalAddDoc">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Cargar</button>
+                    <button type="submit" class="btn btn-acontis">Cargar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
 
                 </form>

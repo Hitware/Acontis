@@ -6,8 +6,11 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Models\Visita;
 use App\Models\Reporte;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\VisitasExport;
+
 class ReporteController extends Controller
 {
     protected $table = 'reportes';
@@ -38,12 +41,30 @@ class ReporteController extends Controller
         ->join('contadores','companies_contadores.id_contador','=','contadores.id_contador')
         ->where('companies_contadores.id_company','=',$idempresa )
         ->where('escaneos.estado_reporte','=','true')
+        ->where('reportes.tipo_reporte','=','Actividad')
+        ->select('companies_contadores.*','escaneos.*','reportes.*','contadores.*')
+        ->get();
+
+        $visitas=DB::table('companies_contadores')
+        ->join('escaneos','companies_contadores.id_companycontador','=','escaneos.id_companie_contador')
+        ->join('reportes','escaneos.id_codigo','=','reportes.id_codigo')
+        ->join('contadores','companies_contadores.id_contador','=','contadores.id_contador')
+        ->where('companies_contadores.id_company','=',$idempresa )
+        ->where('escaneos.estado_reporte','=','true')
+        ->where('reportes.tipo_reporte','=','Visita')
         ->select('companies_contadores.*','escaneos.*','reportes.*','contadores.*')
         ->get();
 
         return view('empresas.listreportes',array(
-            'reportes'=>$reportes
+            'reportes'=>$reportes,
+            'visitas'=>$visitas,
         ));
+    }
+
+    public function visitas(Request $request){
+        $inicio='12-05-2020';
+        $final='12-09-2020';
+        return Excel::download(new VisitasExport($inicio,$final),'indicadores-visitas.xlsx');
     }
 
 }

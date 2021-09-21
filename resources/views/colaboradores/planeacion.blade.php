@@ -1,6 +1,6 @@
 @extends('layouts.home')
 @section('content')
-    <h2>Planeacion</h2>
+    <h2>Planeación</h2>
 @if (session('message'))
 <div class="alert alert-warning" role="alert">
 {{session('message')}}
@@ -8,15 +8,16 @@
 @endif
 <div id="container">
     <div id="left">
+        <br>
         <button data-toggle="modal" data-target="#ModalAgregar" class="btn btn-primary btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
             <span class="text">Agregar</span>
         </button>
-
+        <br style="margin-bottom: 3%">
         <h3>Estados de visitas programadas</h3>
-
+        <br>
         <button style="background-color: #2196f3" class="btn btn-primary btn-icon-split">
            <span class="text">Programada</span>
         </button>
@@ -37,7 +38,6 @@
 <br>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h4>Visitas programadas</h4>
     </div>
     <div class="card-body">          
         <div id="ModalAgregar" class="modal fade ">
@@ -99,7 +99,7 @@
                             </div>
                         <hr>
                             <br>
-                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="submit" class="btn btn-acontis">Guardar</button>
                             <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
                         </form>
                         </div>
@@ -178,7 +178,7 @@
                         </div> 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success" id="btnUpdate">Actualizar</button>
+                        <button class="btn btn-acontis" id="btnUpdate">Actualizar</button>
                         <button class="btn btn-danger" id="btnBorrar">Borrar</button>
                     </div>
                 </div>
@@ -212,7 +212,7 @@
             list:     'Lista'
             },
             navLinks: true, // can click day/week names to navigate views
-            editable: true,
+            editable: false,
             eventLimit: true,
              // allow "more" link when too many events
             events : [
@@ -242,7 +242,8 @@
                     
                 return false;
                 }
-            }
+            },
+            
 
         });
 
@@ -270,6 +271,7 @@
         })
 
         });
+        
     </script>
 
 @endsection

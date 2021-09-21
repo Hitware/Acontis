@@ -47,11 +47,11 @@
             </tr>
         </table>
         <div class="footer">
-            <b>Cartagena de India, Colombia <img src="img/reporte/pointer.png" alt="">  Manga Calle 28 # 27-05 Edf. Seaport Of. 901</b>
+            <b>Manga Calle 28 # 27-05 Edificio Seaport Ofinicia N 901 Cartagena - Colombia</b>
             <br>
-            <b>Barranquilla, Colombia <img src="img/reporte/pointer.png" alt=""> Calle 85 Cra 51-B. Edificio  Quantum. Oficina 805</b>
+            <b>Calle 85 # 51B-159 Edificio  Quantum Tower Oficina N 805 Barranquilla - Colombia</b>
             <br>
-            <a href=""> <img src="img/reporte/telephone.png" alt=""> 6606840 <img src="img/reporte/fax.png" alt=""> 693 3015 <img src="img/reporte/correo-electronico.png" alt=""> servicioalcliente@acontis.co</a> 
+            <a class="paco">Téfono: C/gena: (5)6606840 - B/quilla: (5) 401 0293 Fax: 693 3015 Email: servicioalcliente@acontis.co</a> 
             <br>
             <br>
             <a href=""> <img src="img/reporte/youtube.png" alt="">  <img src="img/reporte/instagram.png" alt="">  <img src="img/reporte/facebook.png" alt=""> @acontis.co <img src="img/reporte/linkedin.png" alt=""> ACONTIS</a>

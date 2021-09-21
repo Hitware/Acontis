@@ -35,7 +35,7 @@ function mostrarReporte(idempresa){
                     visita+='<td>'+arreglo[x].hora+'</td>';
                     visita+='<td>'+arreglo[x].name+'</td>';
                     visita+='<td><a onclick="generarPdf('+arreglo[x].id_reporte+')" class="btn btn-acontis btn-circle btn-sm"><i class="fas fa-file-pdf"></i></a>';
-                    visita+='<button type="button"  class="btn btn-acontis btn-circle btn-sm"><i class="fas fa-share-square"></i></button></td></tr>';               
+                    visita+='</td></tr>';               
                 }
                 else{
                     actividades+='<tr><td>'+arreglo[x].fecha+'</td>';

@@ -9,7 +9,7 @@
     <link href="css/estilos-reporte.css" rel="stylesheet">
     <title>Tabla de Empresas</title>
 </head>
-<body style="background-image: url('img/hoja-reporte.jpg');background-size: 100% 30%;background-repeat: no-repeat;">
+<body style="background-image: url('img/hoja-reporte.png');background-size: 100% 30%;background-repeat: no-repeat;">
     <div class="container">
         @foreach ($reportes as $reporte)
         <div class="content row ">

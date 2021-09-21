@@ -20,20 +20,44 @@
 </li>
 <li class="nav-item">
     <a class="nav-link collapsed" href="{{url('solicitudes')}}">
-        <i class="fas fa-fw fa-file-pdf"></i>
+        <i class="fas fa-fw fa-file-signature"></i>
         <span>Certificaciones</span>
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link collapsed" href="{{route('get.generar.pdf.empresa', [ 'id' => Auth::user()->companie_id ])}}">
-        <i class="fas fa-fw fa-file-pdf"></i>
-        <span>Estados Contables</span>
     </a>
 </li>
 <li class="nav-item">
     <a class="nav-link collapsed" href="{{url('reportes')}}">
         <i class="fas fa-fw fa-file-pdf"></i>
         <span>Reportes</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link collapsed" href="{{url('mi-informacion-contable')}}">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>
+            @php
+                $id_empresa=auth()->user()->companie_id;
+                $empresa=\App\Models\Empresa::where('id_company','=',$id_empresa)->get();
+                if($empresa[0]->servicio=="Revisoria Fiscal"){
+                    echo "Mis dictamenes / Informes" ;
+                }
+                else {
+                    echo "Mi información contable";
+                }
+            @endphp
+          
+        </span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link collapsed" href="{{route('get.generar.pdf.empresa', [ 'id' => Auth::user()->companie_id ])}}">
+        
+        @php
+        $id_empresa=auth()->user()->companie_id;
+        $empresa=\App\Models\Empresa::where('id_company','=',$id_empresa)->get();
+        if($empresa[0]->servicio!="Revisoria Fiscal"){
+            echo '<i class="fas fa-fw fa-calculator"></i><span>Información Contable</span>' ;
+        }
+    @endphp
     </a>
 </li>
 

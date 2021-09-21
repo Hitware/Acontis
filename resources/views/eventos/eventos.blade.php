@@ -43,6 +43,9 @@
                                 <th>{{$evento->horario}}</th>
                                 <th>{{$evento->ubicacion}}</th>
                                 <th>
+                                    <a href="{{url('reporte-asistencia/'.$evento->id_actividad)}}" class="btn btn-acontis btn-circle btn-sm">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </a>
                                     <a data-toggle="modal"
                                      data-target="#modalQR{{$evento->id_actividad}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-qrcode"></i>
@@ -68,7 +71,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">Cancelar</button>
-                                            <a type="button" href="{{url('eliminar-evento/'.$evento->id_actividad)}}" class="btn btn-success">Eliminar</a>
+                                            <a type="button" href="{{url('eliminar-evento/'.$evento->id_actividad)}}" class="btn btn-acontis">Eliminar</a>
                                         </div>
                                     </div>
                                 </div>
@@ -128,15 +131,13 @@
                                                      <div class="col-md-8">
                                                         <div class="form-group col">
                                                             <label for="">Descripcion</label>
-                                                            <textarea name="descripcion" id="descripcion" cols="10" rows="5" class="form-control">
-                                                                {{$evento->descripcion}}
-                                                            </textarea>
+                                                            <textarea name="descripcion" id="descripcion" cols="10" rows="5" class="form-control">{{$evento->descripcion}}</textarea>
                                                         </div>
                                                     </div>
                                                     
                                                 </div>
                                                 <br>
-                                                <button type="submit" class="btn btn-success">Actualizar</button>
+                                                <button type="submit" class="btn btn-acontis">Actualizar</button>
                                                 <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
                                             </form>
                                         </div>
@@ -176,48 +177,77 @@
 <div id="ModalAgregar" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <form action="{{url('/agregar-evento')}}" method="post">
+               
             <div class="modal-header">
                 <h5>Agregar Evento</h5>
             </div>
             <div class="modal-body">
-                <form action="{{url('/agregar-evento')}}" method="post">
                     @csrf
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group col">
                                 <label for="">Clase</label>
                                 <select name="tipo" id="tipo" class="form-control" required>
                                     <option value="">--SELECCIONE--</option>
-                                    <option value="Reunion">Formación</option>
-                                    <option value="Reunion">Reunión</option>
+                                    <option value="Formación">Formación</option>
+                                    <option value="Reunión">Reunión</option>
                                     <option value="Actividad">Actividad</option>
-                                    <option value="Tarea">Tarea</option>
-                                    <option value="Recordatorio">Recordatorio</option>
+                                    <option value="Evento">Evento</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group col">
                                 <label for="">Titulo</label>
-                                <input type="text" id="nombre" name="nombre" class="form-control">
+                                <input type="text" id="nombre" name="nombre" class="form-control" required >
                             </div>
                         </div>  
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group col">
                                 <label for="">Fecha</label>
-                                <input type="date" id="fecha" name="fecha" class="form-control">
+                                <input type="date" id="fecha" name="fecha" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group col">
+                                <label for="">Hora</label>
+                                <input type="time" id="hora" name="hora" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group col">
-                                <label for="">Hora</label>
-                                <input type="time" id="hora" name="hora" class="form-control">
+                                <label for="">Invitados</label>
+                                <select class="form-control invitados" name="invitados" id="invitados" required>
+                                    <option value="">--SELECCIONE--</option>
+                                    <option value="Colaboradores">Colaboradores</option>
+                                    <option value="Empresas">Empresas</option>
+                                    <option value="Todos">Todos</option>
+                                </select>
                             </div>
                         </div>
-                          <div class="col-md-4">
+                        <div class="col-md-4" id="select-clasificacion" style="display: none">
                             <div class="form-group col">
-                                <label for="">Invitados</label>
-                                <input type="text" id="invitados" name="invitados" class="form-control">
+                                <label for="">Tipo de Empresa</label>
+                                <select class="form-control" name="clasificacion" id="clasificacion">
+                                    <option value="">--SELECCIONE--</option>
+                                    @foreach ($tipocliente as $tipocliente)
+                                        <option value="{{$tipocliente->nombre}}">{{$tipocliente->nombre}}</option>
+                                    @endforeach
+                                    <option value="Todas">Todas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" id="select-cargo" style="display: none">
+                            <div class="form-group col">
+                                <label for="">Cargo</label>
+                                <select class="form-control" name="cargos" id="cargos">
+                                    <option value="">--SELECCIONE--</option>
+                                    @foreach ($cargos as $cargo)
+                                        <option value="{{$cargo->nombre}}">{{$cargo->nombre}}</option>
+                                    @endforeach
+                                    <option value="Todos">Todos</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -226,21 +256,42 @@
                                 <input type="text" id="ubicacion" name="ubicacion" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="form-group col">
                                 <label for="">Descripcion</label>
-                                <textarea name="descripcion" id="descripcion" cols="10" rows="5" class="form-control"></textarea>
+                                <textarea name="descripcion" id="descripcion" cols="10" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                         
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
-                </form>
+                    
             </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-acontis">Guardar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+            </div>
+            </form>
         </div>
+        
     </div>
 </div>
-
+<script src="{{URL::asset('vendor/jquery/jquery.min.js')}}"></script>
+<script>
+    $('.invitados').on('change', function() {
+        var invitados = $(".invitados").val();
+        if(invitados=="Empresas"){
+           $("#select-cargo").css('display','none');
+           $("#select-clasificacion").css('display','block');
+        }
+        else if(invitados=="Colaboradores"){
+           $("#select-clasificacion").css('display','none');
+           $("#select-cargo").css('display','block');
+        }
+        else{
+           $("#select-clasificacion").css('display','none');
+           $("#select-cargo").css('display','none');
+        }
+    });
+</script>
 @endsection

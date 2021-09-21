@@ -16,12 +16,19 @@ class TipoClienteController extends Controller
         $servicio = new TipoCliente();
         $servicio->nombre= $request->input('nombre');
         $servicio->save();
-        return back()->with('message','Tipo de Cliente creado');
+        return back()->with('message','Registro creado');
+    }
+
+    public function actualizar($id, Request $request){
+        $servicio = TipoCliente::find($id);
+        $servicio->nombre= $request->input('nombre');
+        $servicio->update();
+        return back()->with('message','Registro actualizado');
     }
 
     public function eliminar($id,Request $request){
         $servicio=TipoCliente::find($id);
         $servicio->delete();
-        return back()->with('message','Tipo de Cliente Eliminado');
+        return back()->with('message','Registro eliminado');
     }
 }

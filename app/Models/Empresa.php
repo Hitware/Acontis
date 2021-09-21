@@ -20,7 +20,7 @@ class Empresa extends Model
     {
         if($this->name_bd_adm == null) return;
 
-        $connection = "CLIENT_{$this->tipo_cliente}";
+        $connection = "CLIENT_{$this->propietario}";
 
         config([
             'database.default' => $connection,

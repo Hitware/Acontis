@@ -26,8 +26,37 @@
                                     <a data-toggle="modal" data-target="#ModalEliminarTipoCliente{{$tipocliente->id_tipocliente}}" class="btn btn-acontis btn-circle btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </a>
+                                    <a data-toggle="modal" data-target="#ModalEditarTipoCliente{{$tipocliente->id_tipocliente}}" class="btn btn-acontis btn-circle btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                 </th>
                             </tr>
+                            <div id="ModalEditarTipoCliente{{$tipocliente->id_tipocliente}}" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="{{url('actualizar-tipocliente',['id'=>$tipocliente->id_tipocliente])}}" method="post">
+                                            @csrf
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group col">
+                                                        <label for="">Nombre Clasificación</label>
+                                                        <input type="text" value="{{$tipocliente->nombre}}" class="form-control" id="nombre" name="nombre">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-danger">Cancelar</button>
+                                            <button type="submit" class="btn btn-acontis">Actualizar</button>
+                                        </div>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
                             <div id="ModalEliminarTipoCliente{{$tipocliente->id_tipocliente}}" class="modal fade">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -60,7 +89,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Agregar Tipo Cliente</h5>
+                <h5 class="modal-title">Agregar Clasificación</h5>
             </div>
             <div class="modal-body">
                 <form action="{{url('agregar-tipocliente')}}" method="post">
@@ -68,12 +97,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group col">
-                                <label for="">Tipo de Cliente</label>
+                                <label for="">Nombre Clasificación</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre">
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-acontis">Guardar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
 
                 </form>

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\Documento;
 use App\Models\Empresa;
 use PDF;
+use Carbon\Carbon;
 
 class DocumentoController extends Controller
 {
@@ -76,18 +77,20 @@ class DocumentoController extends Controller
         ));
     }
 
-    public function generarpdf(){
-        $id_empresa=auth()->user()->companie_id;
-        $empresa=Empresa::where('id_company','=',$id_empresa)->get();
-        $fecha = \Carbon\Carbon::parse(date('Y-m-d'));
+    public function generarpdf($id){
+        $empresa=Empresa::where('id_company','=',$id)->get();
+        $fechacontrato=$empresa[0]->fecha_contrato;
+        $fechacontrato = Carbon::parse($fechacontrato);
+        $fechacon = Carbon::parse($fechacontrato);
+        $diacontrato = $fechacon->day;
+        $aniocontrato = $fechacon->year;
+        $fecha = Carbon::parse(date('Y-m-d'));
         $date=$fecha->locale('es');
+        $date=$fechacontrato->locale('es');
         $mes=($fecha->monthName);
-        $pdf = PDF::loadView('reportes.referencia',compact('empresa','mes'));
-        $path = public_path('/');
-        $fileName =  time().'.'. 'pdf';
-        $pdf->save($path . '/' . $fileName);
-        $pdf = public_path($fileName);
-        return response()->download($pdf);
+        $mescontrato=($fechacontrato->monthName);
+        $pdf = PDF::loadView('reportes.referencia',compact('empresa','mes','mescontrato','diacontrato','aniocontrato'));
+        return $pdf->download('Referencia Comercial'.$empresa[0]->name_company.'.pdf');
     }
 
 }
