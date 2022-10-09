@@ -28,7 +28,7 @@
         <div class="container text-center">
         <img width="35%" src="{{URL::asset('img/acontis_blanco.svg')}}">
             <br>
-          <h2 style="margin-top: 3%">Retroalimentación de Visitas</h2>
+          <h2 style="margin-top: 3%">Retroalimentación de visitas</h2>
         </div>
       </header>
       <br>
@@ -41,7 +41,7 @@
                         <div class="col-md-10">
                             <div class="form-group col">
                                 <label for="">Comentarios</label>
-                                <textarea required class="form-control" name="comentarios" id="comentarios" cols="30" rows="10"></textarea>
+                                <textarea class="form-control" name="comentarios" id="comentarios" cols="30" rows="10"></textarea>
                             </div>
                         </div>
                         <div class="col-md-10">

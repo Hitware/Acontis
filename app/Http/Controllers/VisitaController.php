@@ -19,11 +19,17 @@ class VisitaController extends Controller
     
     public function planeacion($sede){
         $id_user=auth()->user()->id_contador;
-
-        if(auth()->user()->role_id=='3'){
-            $empresas=Empresa::get()
-            ->where('sede','=',$sede)
-            ->sortBy('name_company');
+        $rol=auth()->user()->role_id;
+        if($rol==3){
+            if($sede=="general"){
+                $empresas=Empresa::get()
+                ->sortBy('name_company');
+            }
+            else{
+                $empresas=Empresa::get()
+                ->where('sede','=',$sede)
+                ->sortBy('name_company');
+            }
         }
         else{
             $empresas=Empresa::where('id_asesor','=',$id_user)

@@ -38,6 +38,8 @@
                 <th colspan="2"><b>TALLA CAMISA</b></th>
                 <th colspan="2"><b>TALLA PANTALON</b></th>
                 <th colspan="2"><b>TALLA ZAPATOS</b></th>
+                <th colspan="2"><b>ALERGIAS</b></th>
+                <th colspan="2"><b>ANTECEDENTES</b></th>
 
             </tr>
         </thead>
@@ -72,6 +74,8 @@
             <th colspan="2">{{$colaborador->talla}}</th>
             <th colspan="2">{{$colaborador->talla_pantalon}}</th>
             <th colspan="2">{{$colaborador->talla_zapatos}}</th>
+            <th colspan="3">{{$colaborador->alergias}}</th>
+            <th colspan="3">{{$colaborador->antecedentes}}</th>
         </tr>
         @endif
     @endforeach

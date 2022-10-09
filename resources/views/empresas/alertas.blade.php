@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th>Alerta</th>
+                <th>Descripción</th>
                 <th>Fecha</th>
                 <th>Estado</th>
                 <th></th>
@@ -33,6 +34,7 @@
                         <tr class="bg-danger">
                     @endif
                        <td>{{$alerta->alerta}}</td>
+                       <td>{{$alerta->descripcion}}</td>
                        <td>{{$alerta->fecha}}</td>
                        <td>{{$alerta->estado}}</td>
                        <td></td>
@@ -71,6 +73,12 @@
                             <div class="form-group col">
                                 <label for="">Fecha</label>
                                 <input type="date" id="fecha" name="fecha" class="form-control" required>
+                            </div>
+                        </div>  
+                        <div class="col-md-6">
+                            <div class="form-group col">
+                                <label for="">Descripción</label>
+                                <input type="text" id="descripcion" name="descripcion" class="form-control" required>
                             </div>
                         </div>  
                         

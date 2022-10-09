@@ -361,7 +361,7 @@ class UserController extends Controller
        return response(json_encode($usuarios),200)->header('Content-type','text/plain');
     }
 
-    public function usercompanies(){
+   /* public function usercompanies(){
         $empresas=Empresa::get();
         foreach($empresas as $empresa){
             $user = new User();
@@ -375,7 +375,7 @@ class UserController extends Controller
             $empresa->user_id=$id_user->id_contador;
             $empresa->update();
         }
-    }
+    }*/
 
     public function acontisitos(){
         $hijos = HijoColaborador::join('contadores','hijos_colaboradores.id_colaborador','=','contadores.id_contador')

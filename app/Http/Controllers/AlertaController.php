@@ -20,6 +20,7 @@ class AlertaController extends Controller
         $alerta=new Alerta();
         $alerta->alerta=$request->input('alerta');
         $alerta->fecha=$request->input('fecha');
+        $alerta->descripcion=$request->input('descripcion');
         $alerta->estado='pendiente';
         $alerta->id_empresa=$id_empresa;
         $alerta->save();

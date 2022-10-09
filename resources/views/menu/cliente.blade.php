@@ -37,11 +37,11 @@
             @php
                 $id_empresa=auth()->user()->companie_id;
                 $empresa=\App\Models\Empresa::where('id_company','=',$id_empresa)->get();
-                if($empresa[0]->servicio=="Revisoria Fiscal"){
+                if($empresa[0]->servicio=="Revisoria fiscal"){
                     echo "Mis dictamenes / Informes" ;
                 }
                 else {
-                    echo "Mi información contable";
+                    echo "Mi backup contable";
                 }
             @endphp
           

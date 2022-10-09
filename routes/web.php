@@ -796,8 +796,8 @@ Route::get('reporte-colaboradores/{estado}',array(
 ));
 
 
-/*Route::get('/registrar-usuariocompanies',array(
+Route::get('/registrar-usuariocompanies',array(
     'as'=>'registrar-usuariocompanies',
     'middleware'=>'auth',
     'uses'=>'UserController@usercompanies'
-));*/
+));

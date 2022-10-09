@@ -15,8 +15,12 @@
         <div class="content">
             <br>
             <br>
+            <br>
+            <br>
             <center><b style="font-family: Verdana, Geneva, Tahoma, sans-serif;">CERTIFICACIÓN
             </b></center> 
+            <br>
+            <br>
             <br>
             <p style="text-align: justify;font-family: Verdana, Geneva, Tahoma, sans-serif;">
                 Certificamos qué, la empresa <b>{{$empresa->name_company}},</b> identificada con <b>NIT {{$empresa->nit_company}},</b>
@@ -38,9 +42,6 @@
             <br> <br>
             <br>
             <br> <br>
-            <br>
-            <br>
-            <br>
             <br>
             <br>
            

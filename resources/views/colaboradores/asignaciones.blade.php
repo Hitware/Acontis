@@ -195,6 +195,7 @@
 
 <script>
     function empresas(colaborador){
+        
         $.ajax({
             url:'empresas-total',
             method:'POST',
@@ -269,7 +270,6 @@
         }).done(function(res){
             alert(res);
             $("#ModalAux").modal("hide");
-
         })
     }
     function desasignar(colaborador,empresa){

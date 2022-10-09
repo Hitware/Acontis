@@ -90,6 +90,7 @@
             @foreach ($sedes as $sede)
                 <a class="collapse-item" href="{{url('planeacion/'.$sede->nombre_ciudad)}}">{{$sede->nombre_ciudad}}</a>
             @endforeach
+            <a class="collapse-item" href="{{url('planeacion/general')}}">General</a>
         </div>
     </div>
 </li>
